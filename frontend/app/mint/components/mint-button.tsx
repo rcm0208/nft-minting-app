@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ethers } from 'ethers';
-import { useWeb3ModalProvider, useSwitchNetwork } from '@web3modal/ethers/react';
+import { useWeb3ModalProvider, useSwitchNetwork, useWeb3Modal } from '@web3modal/ethers/react';
 import { networkConfig } from '@/config/network-config';
 import abiMap from '@/config/abiConfig';
 import { Button } from '@/components/ui/button';
@@ -28,17 +28,18 @@ export default function MintButton({
   isMinting,
   setIsMinting,
   isSoldOut,
-  currentNetworkId,
   setCurrentNetworkId,
   updateTotalSupply,
 }: MintButtonProps) {
   const { walletProvider } = useWeb3ModalProvider();
   const { switchNetwork } = useSwitchNetwork();
+  const web3Modal = useWeb3Modal();
   const [isNetworkSwitching, setIsNetworkSwitching] = useState(false);
 
   async function handleMint() {
     if (!walletProvider) {
       console.error('No wallet provider found');
+      await web3Modal.open();
       return;
     }
 
@@ -90,7 +91,12 @@ export default function MintButton({
   const buttonLabel = isSoldOut ? 'Sold Out' : isMinting ? 'Minting...' : 'Mint';
 
   return (
-    <Button onClick={handleMint} disabled={isLoading || isSoldOut}>
+    <Button
+      onClick={handleMint}
+      disabled={isLoading || isSoldOut}
+      className="w-[400px]"
+      size={'lg'}
+    >
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {buttonLabel}
     </Button>

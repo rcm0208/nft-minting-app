@@ -27,18 +27,21 @@ export default function MintQuantitySelector({
   };
 
   return (
-    <div className="flex items-center mb-4">
-      <Button variant="ghost" onClick={decrementQuantity} disabled={isMinting || quantity <= 1}>
-        <MinusIcon className="h-5 w-5" />
-      </Button>
-      <span className="mx-2 w-16 text-center">{quantity}</span>
-      <Button
-        variant="ghost"
-        onClick={incrementQuantity}
-        disabled={isMinting || quantity >= maxMintAmount}
-      >
-        <PlusIcon className="h-5 w-5" />
-      </Button>
-    </div>
+    <>
+      <div className="flex items-center mb-4">
+        <h2>Mint Quantity: </h2>
+        <Button variant="ghost" onClick={decrementQuantity} disabled={isMinting || quantity <= 1}>
+          <MinusIcon className="h-5 w-5" />
+        </Button>
+        <span className="mx-2 w-16 text-center">{quantity}</span>
+        <Button
+          variant="ghost"
+          onClick={incrementQuantity}
+          disabled={isMinting || quantity >= maxMintAmount}
+        >
+          <PlusIcon className="h-5 w-5" />
+        </Button>
+      </div>
+    </>
   );
 }

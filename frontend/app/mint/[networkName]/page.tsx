@@ -10,6 +10,8 @@ import { useWeb3ModalProvider } from '@web3modal/ethers/react';
 import { MintResultToast } from '@/components/mint-result-toast';
 import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
+import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 interface Params {
   params: {
@@ -89,33 +91,66 @@ export default function MintNetworkPage({ params }: Params) {
   const isSoldOut = maxSupply !== null && totalSupply !== null && totalSupply >= maxSupply;
 
   return (
-    <div>
+    <>
       <MintResultToast />
 
-      {maxSupply !== null && totalSupply !== null ? (
-        <p>{`Total Supply: ${totalSupply} / ${maxSupply}`}</p>
-      ) : (
-        <p>Loading supply data...</p>
-      )}
+      <div className="py-5 lg:py-40 flex items-center justify-between">
+        <div className="container mx-auto flex flex-col lg:flex-row items-center">
+          <div className="lg:w-1/2 w-full lg:pl-8 mt-8 lg:mt-0 flex justify-center order-1">
+            <Image
+              src="/pet-nft-1.jpeg"
+              alt="NFT Image"
+              width={400}
+              height={400}
+              className="max-w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
 
-      <MintQuantitySelector
-        quantity={quantity}
-        setQuantity={setQuantity}
-        isMinting={isMinting}
-        maxMintAmount={maxMintAmount}
-      />
+          <div className="lg:w-1/2 w-full lg:pr-8 order-2 mt-8 lg:mt-0 text-center lg:text-left flex flex-col">
+            <h1 className="font-bold text-4xl mb-5 lg:text-6xl">Pet NFT Collection</h1>
+            <p className="text-muted-foreground mb-4">Free NFT Collection</p>
 
-      <MintButton
-        networkName={networkName}
-        networkId={config.networkId}
-        quantity={quantity}
-        isMinting={isMinting}
-        setIsMinting={setIsMinting}
-        isSoldOut={isSoldOut}
-        currentNetworkId={currentNetworkId}
-        setCurrentNetworkId={setCurrentNetworkId}
-        updateTotalSupply={updateTotalSupply}
-      />
-    </div>
+            <div className="flex justify-center lg:justify-start mb-4 text-primary">
+              <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
+                <p>{`Max Mint Amount: ${maxMintAmount}`}</p>
+              </div>
+              {maxSupply !== null && totalSupply !== null ? (
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner">
+                  <p>{`Total Supply: ${totalSupply} / ${maxSupply}`}</p>
+                </div>
+              ) : (
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <p>Loading supply data...</p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-center lg:justify-start mb-4">
+              <MintQuantitySelector
+                quantity={quantity}
+                setQuantity={setQuantity}
+                isMinting={isMinting}
+                maxMintAmount={maxMintAmount}
+              />
+            </div>
+
+            <div className="flex justify-center lg:justify-start">
+              <MintButton
+                networkName={networkName}
+                networkId={config.networkId}
+                quantity={quantity}
+                isMinting={isMinting}
+                setIsMinting={setIsMinting}
+                isSoldOut={isSoldOut}
+                currentNetworkId={currentNetworkId}
+                setCurrentNetworkId={setCurrentNetworkId}
+                updateTotalSupply={updateTotalSupply}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
