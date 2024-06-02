@@ -1,0 +1,40 @@
+{
+  "name": "contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "hardhat clean",
+    "clear": "yarn run clean && rimraf node_module yarn.lock",
+    "compile": "hardhat compile",
+    "balance": "hardhat balance",
+    "test": "hardhat test",
+    "test-standard-erc721a": "hardhat clean && hardhat compile && hardhat test test/erc721a/StandardERC721A.test.ts",
+    "deploy-standard-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/erc721a/deploy.ts"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-ignition": "^0.15.0",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.6",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": ">=9.1.0",
+    "@types/node": ">=18.0.0",
+    "chai": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "erc721a": "^4.3.0",
+    "ethers": "^6.12.0",
+    "hardhat": "^2.22.3",
+    "hardhat-gas-reporter": "^2.1.1",
+    "solidity-coverage": "^0.8.0",
+    "ts-node": ">=8.0.0",
+    "typechain": "^8.3.0",
+    "typescript": ">=4.5.0"
+  }
+}
