@@ -37,6 +37,8 @@ export default function MintButton({
   const [isNetworkSwitching, setIsNetworkSwitching] = useState(false); // ネットワーク切り替え中かどうかを示すフラグ
   const [initialMintAttempted, setInitialMintAttempted] = useState(false); // 初回ミント試行フラグ
 
+  const contractAddress = networkConfig[networkName]?.mintCollectionAddress; // コントラクトアドレスを取得
+
   const handleMint = useCallback(async () => {
     if (!walletProvider) {
       console.error('No wallet provider found');
@@ -76,7 +78,6 @@ export default function MintButton({
       // ミントに必要な情報を取得
       const signer = await provider.getSigner();
       const contractModule = abiMap[networkId];
-      const contractAddress = networkConfig[networkName]?.mintCollectionAddress;
 
       if (!contractModule || !contractAddress) {
         console.error('No ABI or contract address found for the specified network');
@@ -101,13 +102,13 @@ export default function MintButton({
     walletProvider,
     web3Modal,
     networkId,
-    networkName,
     quantity,
     switchNetwork,
     updateTotalSupply,
     setCurrentNetworkId,
     setIsMinting,
     initialMintAttempted,
+    contractAddress,
   ]);
 
   // ウォレット接続後に自動的にミントフローを実行
@@ -118,12 +119,18 @@ export default function MintButton({
   }, [walletProvider, handleMint, initialMintAttempted]);
 
   const isLoading = isMinting || isNetworkSwitching;
-  const buttonLabel = isSoldOut ? 'Sold Out' : isMinting ? 'Minting...' : 'Mint';
+  const buttonLabel = !contractAddress
+    ? 'Not Available'
+    : isSoldOut
+    ? 'Sold Out'
+    : isMinting
+    ? 'Minting...'
+    : 'Mint';
 
   return (
     <Button
       onClick={handleMint}
-      disabled={isLoading || isSoldOut}
+      disabled={isLoading || isSoldOut || !contractAddress}
       className="w-[400px] lg:w-[500px]"
       size={'lg'}
     >
