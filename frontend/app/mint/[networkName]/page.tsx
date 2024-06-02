@@ -11,9 +11,9 @@ import { MintResultToast } from '@/components/mint-result-toast';
 import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
 import Image from 'next/image';
-import { Loader2 } from 'lucide-react';
 import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
+import Link from 'next/link';
 
 interface Params {
   params: {
@@ -144,6 +144,14 @@ export default function MintNetworkPage({ params }: Params) {
                 updateTotalSupply={updateTotalSupply}
               />
             </div>
+
+            {config.faucetUrl && (
+              <div className="flex justify-center lg:justify-start mt-4">
+                <Link href={config.faucetUrl as string} target="_blank" rel="noopener noreferrer">
+                  Faucet Click Here
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
