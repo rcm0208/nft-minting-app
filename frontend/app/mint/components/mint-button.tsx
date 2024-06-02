@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
-import { useWeb3ModalProvider, useSwitchNetwork } from '@web3modal/ethers/react';
+import { useWeb3ModalProvider, useSwitchNetwork, useWeb3Modal } from '@web3modal/ethers/react';
 import { networkConfig } from '@/config/network-config';
 import abiMap from '@/config/abiConfig';
 import { Button } from '@/components/ui/button';
@@ -28,32 +28,45 @@ export default function MintButton({
   isMinting,
   setIsMinting,
   isSoldOut,
-  currentNetworkId,
   setCurrentNetworkId,
   updateTotalSupply,
 }: MintButtonProps) {
-  const { walletProvider } = useWeb3ModalProvider();
-  const { switchNetwork } = useSwitchNetwork();
-  const [isNetworkSwitching, setIsNetworkSwitching] = useState(false);
+  const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
+  const { switchNetwork } = useSwitchNetwork(); // ネットワーク切り替え用のフックを取得
+  const web3Modal = useWeb3Modal(); // Web3Modalインスタンスを取得
+  const [isNetworkSwitching, setIsNetworkSwitching] = useState(false); // ネットワーク切り替え中かどうかを示すフラグ
+  const [initialMintAttempted, setInitialMintAttempted] = useState(false); // 初回ミント試行フラグ
 
-  async function handleMint() {
+  const contractAddress = networkConfig[networkName]?.mintCollectionAddress; // コントラクトアドレスを取得
+
+  const handleMint = useCallback(async () => {
     if (!walletProvider) {
       console.error('No wallet provider found');
+      // ウォレット接続がない場合、web3Modalを開いて接続を促す
+      await web3Modal.open();
+      setInitialMintAttempted(true);
       return;
+    }
+
+    if (initialMintAttempted) {
+      setInitialMintAttempted(false);
     }
 
     setIsMinting(true);
 
     try {
+      // 現在のネットワークを取得
       let provider = new ethers.BrowserProvider(walletProvider);
       let network = await provider.getNetwork();
 
+      // ネットワークが異なる場合、ネットワークを切り替える
       if (network.chainId !== BigInt(networkId)) {
         console.log(`Switching network to ${networkId}`);
         setIsNetworkSwitching(true);
         await switchNetwork(parseInt(networkId, 10));
         setCurrentNetworkId(networkId);
 
+        // ネットワークが切り替わるのを待つ
         while (network.chainId !== BigInt(networkId)) {
           provider = new ethers.BrowserProvider(walletProvider);
           network = await provider.getNetwork();
@@ -62,9 +75,9 @@ export default function MintButton({
         setIsNetworkSwitching(false);
       }
 
+      // ミントに必要な情報を取得
       const signer = await provider.getSigner();
       const contractModule = abiMap[networkId];
-      const contractAddress = networkConfig[networkName]?.mintCollectionAddress;
 
       if (!contractModule || !contractAddress) {
         console.error('No ABI or contract address found for the specified network');
@@ -72,25 +85,55 @@ export default function MintButton({
         return;
       }
 
+      // ミントを実行
       const contract = new ethers.Contract(contractAddress, contractModule.abi, signer);
       const tx = await contract.mint(quantity);
       console.log('Minted NFT:', tx);
       await tx.wait();
-      await updateTotalSupply();
-      showMintSuccessToast();
+      await updateTotalSupply(); // Total Supplyを更新
+      showMintSuccessToast(); // 成功時のトースト
     } catch (error) {
       console.error('Minting failed:', error);
-      showMintErrorToast();
+      showMintErrorToast(); // 失敗時のトースト
     } finally {
       setIsMinting(false);
     }
-  }
+  }, [
+    walletProvider,
+    web3Modal,
+    networkId,
+    quantity,
+    switchNetwork,
+    updateTotalSupply,
+    setCurrentNetworkId,
+    setIsMinting,
+    initialMintAttempted,
+    contractAddress,
+  ]);
+
+  // ウォレット接続後に自動的にミントフローを実行
+  useEffect(() => {
+    if (walletProvider && initialMintAttempted) {
+      handleMint();
+    }
+  }, [walletProvider, handleMint, initialMintAttempted]);
 
   const isLoading = isMinting || isNetworkSwitching;
-  const buttonLabel = isSoldOut ? 'Sold Out' : isMinting ? 'Minting...' : 'Mint';
+  const buttonLabel = !contractAddress
+    ? 'Not Available'
+    : isSoldOut
+    ? 'Sold Out'
+    : isMinting
+    ? 'Minting...'
+    : 'Mint';
 
   return (
-    <Button onClick={handleMint} disabled={isLoading || isSoldOut}>
+    <Button
+      onClick={handleMint}
+      disabled={isLoading || isSoldOut || !contractAddress}
+      className="w-[400px] lg:w-[500px]"
+      size={'lg'}
+    >
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {buttonLabel}
     </Button>
