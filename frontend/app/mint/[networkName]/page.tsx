@@ -12,6 +12,8 @@ import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
 import Image from 'next/image';
 import { Loader2 } from 'lucide-react';
+import SupplyDisplay from '@/components/supply-display';
+import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 
 interface Params {
   params: {
@@ -22,14 +24,15 @@ interface Params {
 export default function MintNetworkPage({ params }: Params) {
   const { networkName } = params;
 
-  const [quantity, setQuantity] = useState<number>(1);
-  const [isMinting, setIsMinting] = useState(false);
-  const [maxSupply, setMaxSupply] = useState<number | null>(null);
-  const [totalSupply, setTotalSupply] = useState<number | null>(null);
-  const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // Changed from number to number | null
-  const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(null);
-  const { walletProvider } = useWeb3ModalProvider();
+  const [quantity, setQuantity] = useState<number>(1); // ミント数
+  const [isMinting, setIsMinting] = useState(false); // ミント中かどうか
+  const [maxSupply, setMaxSupply] = useState<number | null>(null); // 最大供給量
+  const [totalSupply, setTotalSupply] = useState<number | null>(null); // 現在の供給量
+  const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // 1回の最大ミント数
+  const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(null); // 現在のネットワークID
+  const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
+  // 選択したネットワーク名からネットワーク情報を取得
   const network = networkData.find((net) => net.networkName === networkName);
   const config = networkConfig[networkName];
 
@@ -39,6 +42,7 @@ export default function MintNetworkPage({ params }: Params) {
       return;
     }
 
+    // コントラクトの最大供給量、現在の供給量、1回の最大ミント数を取得
     async function fetchSupplyData() {
       const provider = new ethers.JsonRpcProvider(config.rpcUrl);
       const contractModule = abiMap[config.networkId];
@@ -57,6 +61,7 @@ export default function MintNetworkPage({ params }: Params) {
       setMaxMintAmount(Number(maxMintAmount));
     }
 
+    // 現在のネットワークIDを取得
     async function getCurrentNetwork() {
       if (walletProvider) {
         const provider = new ethers.BrowserProvider(walletProvider);
@@ -69,6 +74,7 @@ export default function MintNetworkPage({ params }: Params) {
     getCurrentNetwork();
   }, [network, config, walletProvider]);
 
+  // 現在の供給量を更新
   const updateTotalSupply = async () => {
     if (!config) return;
 
@@ -88,6 +94,7 @@ export default function MintNetworkPage({ params }: Params) {
     return null;
   }
 
+  // 在庫の確認
   const isSoldOut = maxSupply !== null && totalSupply !== null && totalSupply >= maxSupply;
 
   return (
@@ -111,27 +118,8 @@ export default function MintNetworkPage({ params }: Params) {
             <p className="text-muted-foreground mb-6">Free NFT Collection</p>
 
             <div className="flex justify-center lg:justify-start mb-6 text-primary">
-              {maxMintAmount !== null ? (
-                <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
-                  <p>{`Max Mint Amount: ${maxMintAmount}`}</p>
-                </div>
-              ) : (
-                <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner flex items-center">
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  <p>Loading max mint amount...</p>
-                </div>
-              )}
-
-              {maxSupply !== null && totalSupply !== null ? (
-                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner">
-                  <p>{`Total Supply: ${totalSupply} / ${maxSupply}`}</p>
-                </div>
-              ) : (
-                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner flex items-center">
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  <p>Loading supply data...</p>
-                </div>
-              )}
+              <MaxMintAmountDisplay maxMintAmount={maxMintAmount} />
+              <SupplyDisplay maxSupply={maxSupply} totalSupply={totalSupply} />
             </div>
 
             <div className="flex justify-center lg:justify-start mb-2">
