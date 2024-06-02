@@ -26,7 +26,7 @@ export default function MintNetworkPage({ params }: Params) {
   const [isMinting, setIsMinting] = useState(false);
   const [maxSupply, setMaxSupply] = useState<number | null>(null);
   const [totalSupply, setTotalSupply] = useState<number | null>(null);
-  const [maxMintAmount, setMaxMintAmount] = useState<number>(1);
+  const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // Changed from number to number | null
   const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(null);
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -108,30 +108,38 @@ export default function MintNetworkPage({ params }: Params) {
 
           <div className="lg:w-1/2 w-full lg:pr-8 order-2 mt-8 lg:mt-0 text-center lg:text-left flex flex-col">
             <h1 className="font-bold text-4xl mb-5 lg:text-6xl">Pet NFT Collection</h1>
-            <p className="text-muted-foreground mb-4">Free NFT Collection</p>
+            <p className="text-muted-foreground mb-6">Free NFT Collection</p>
 
-            <div className="flex justify-center lg:justify-start mb-4 text-primary">
-              <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
-                <p>{`Max Mint Amount: ${maxMintAmount}`}</p>
-              </div>
+            <div className="flex justify-center lg:justify-start mb-6 text-primary">
+              {maxMintAmount !== null ? (
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
+                  <p>{`Max Mint Amount: ${maxMintAmount}`}</p>
+                </div>
+              ) : (
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner flex items-center">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <p>Loading max mint amount...</p>
+                </div>
+              )}
+
               {maxSupply !== null && totalSupply !== null ? (
                 <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner">
                   <p>{`Total Supply: ${totalSupply} / ${maxSupply}`}</p>
                 </div>
               ) : (
-                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner">
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg shadow-inner flex items-center">
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   <p>Loading supply data...</p>
                 </div>
               )}
             </div>
 
-            <div className="flex justify-center lg:justify-start mb-4">
+            <div className="flex justify-center lg:justify-start mb-2">
               <MintQuantitySelector
                 quantity={quantity}
                 setQuantity={setQuantity}
                 isMinting={isMinting}
-                maxMintAmount={maxMintAmount}
+                maxMintAmount={maxMintAmount || 1}
               />
             </div>
 

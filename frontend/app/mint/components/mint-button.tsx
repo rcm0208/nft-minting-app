@@ -94,7 +94,7 @@ export default function MintButton({
     <Button
       onClick={handleMint}
       disabled={isLoading || isSoldOut}
-      className="w-[400px]"
+      className="w-[400px] lg:w-[500px]"
       size={'lg'}
     >
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
