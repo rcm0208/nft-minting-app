@@ -23,4 +23,11 @@ export const networkConfig: NetworkConfig = {
     explorerUrl: 'https://amoy.polygonscan.com',
     faucetUrl: 'https://www.alchemy.com/faucets/polygon-amoy',
   },
+  'arbitrum-sepolia': {
+    networkId: '80002',
+    mintCollectionAddress: '',
+    rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
+    explorerUrl: 'https://sepolia.arbiscan.io',
+    faucetUrl: 'https://www.alchemy.com/faucets/arbitrum-sepolia',
+  },
 };

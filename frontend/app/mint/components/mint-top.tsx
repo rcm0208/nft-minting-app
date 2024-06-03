@@ -8,7 +8,8 @@ export default function MintTop() {
       <div className="grid lg:grid-cols-3 gap-4">
         {networkData.map((network) => (
           <NetworkCardlist
-            key={network.networkName}
+            key={network.networkUrl}
+            networkUrl={network.networkUrl}
             networkName={network.networkName}
             description={network.description}
           />

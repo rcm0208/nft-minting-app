@@ -17,12 +17,12 @@ import Link from 'next/link';
 
 interface Params {
   params: {
-    networkName: string;
+    networkUrl: string;
   };
 }
 
 export default function MintNetworkPage({ params }: Params) {
-  const { networkName } = params;
+  const { networkUrl } = params;
 
   const [quantity, setQuantity] = useState<number>(1); // ミント数
   const [isMinting, setIsMinting] = useState(false); // ミント中かどうか
@@ -33,8 +33,8 @@ export default function MintNetworkPage({ params }: Params) {
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
   // 選択したネットワーク名からネットワーク情報を取得
-  const network = networkData.find((net) => net.networkName === networkName);
-  const config = networkConfig[networkName];
+  const network = networkData.find((net) => net.networkUrl === networkUrl);
+  const config = networkConfig[networkUrl];
 
   useEffect(() => {
     if (!network || !config) {
@@ -133,7 +133,7 @@ export default function MintNetworkPage({ params }: Params) {
 
             <div className="flex justify-center lg:justify-start">
               <MintButton
-                networkName={networkName}
+                networkName={networkUrl}
                 networkId={config.networkId}
                 quantity={quantity}
                 isMinting={isMinting}
