@@ -14,6 +14,7 @@ import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 import Link from 'next/link';
 import { networkData } from '@/config/network-data';
+import Slideshow from '@/components/slide-show';
 
 interface Params {
   params: {
@@ -125,13 +126,14 @@ export default function MintNetworkPage({ params }: Params) {
       <div className="py-5 lg:py-40 flex items-center justify-between">
         <div className="container mx-auto flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/2 w-full lg:pl-8 mt-8 lg:mt-0 flex justify-center order-1">
-            <Image
+            {/* <Image
               src="/pet-nft-1.jpeg"
               alt="NFT Image"
               width={400}
               height={400}
               className="max-w-full h-auto rounded-lg shadow-lg"
-            />
+            /> */}
+            <Slideshow />
           </div>
 
           <div className="lg:w-1/2 w-full lg:pr-8 order-2 mt-8 lg:mt-0 text-center lg:text-left flex flex-col">
