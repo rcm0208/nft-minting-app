@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { networkConfig } from '@/config/network-config';
 import { useWeb3ModalProvider } from '@web3modal/ethers/react';
 import { MintResultToast } from '@/components/mint-result-toast';
-import { abiMap } from '@/config/abiConfig';
+import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
 import Image from 'next/image';
@@ -47,7 +47,7 @@ export default function MintNetworkPage({ params }: Params) {
     async function fetchSupplyData() {
       try {
         const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-        const contractModule = abiMap[config.networkId];
+        const contractModule = standardERC721AbiMap[config.networkId];
 
         if (!contractModule || !config.mintCollectionAddress) {
           throw new Error('Contract information is missing');
@@ -91,7 +91,7 @@ export default function MintNetworkPage({ params }: Params) {
 
     try {
       const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-      const contractModule = abiMap[config.networkId];
+      const contractModule = standardERC721AbiMap[config.networkId];
 
       if (!contractModule || !config.mintCollectionAddress) {
         throw new Error('Contract information is missing');

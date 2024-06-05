@@ -8,7 +8,7 @@ export default function Features() {
         <div className="border relative rounded-md p-6 shadow space-y-3">
           <div className="aspect-video bg-muted"></div>
           <h2 className="font-bold">
-            NFT Minting <Link href="/mint" className="absolute inset-0"></Link>
+            NFT Minting of ERC721 <Link href="/mint" className="absolute inset-0"></Link>
           </h2>
           <p>NFTをミントできます</p>
         </div>

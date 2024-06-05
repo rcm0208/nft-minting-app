@@ -23,11 +23,25 @@ export const networkConfig: NetworkConfig = {
     explorerUrl: 'https://amoy.polygonscan.com',
     faucetUrl: 'https://www.alchemy.com/faucets/polygon-amoy',
   },
+  bsc: {
+    networkId: '97',
+    mintCollectionAddress: '', //FIXME: BNB Smart Chain Testnetのコントラクトをデプロイ後に変更
+    rpcUrl: 'https://bsc-testnet-dataseed.bnbchain.org',
+    explorerUrl: 'https://testnet.bscscan.com',
+    faucetUrl: 'https://www.bnbchain.org/en/testnet-faucet',
+  },
   'arbitrum-sepolia': {
     networkId: '421614',
-    mintCollectionAddress: '',
+    mintCollectionAddress: '', //FIXME: Arbitrum Sepoliaのコントラクトをデプロイ後に変更
     rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
     explorerUrl: 'https://sepolia.arbiscan.io',
     faucetUrl: 'https://www.alchemy.com/faucets/arbitrum-sepolia',
+  },
+  'base-sepolia': {
+    networkId: '84532',
+    mintCollectionAddress: '', //FIXME: Base Sepoliaのコントラクトをデプロイ後に変更
+    rpcUrl: 'https://sepolia.base.org',
+    explorerUrl: 'https://sepolia.basescan.org',
+    faucetUrl: 'https://www.alchemy.com/faucets/base-sepolia',
   },
 };
