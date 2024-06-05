@@ -1,10 +1,10 @@
-interface Network {
+export interface NetworkData {
   networkUrl: string;
   networkName: string;
   description: string;
 }
 
-export const networkData: Network[] = [
+export const networkData: NetworkData[] = [
   { networkUrl: 'sepolia', networkName: 'Sepolia', description: 'SepoliaのNFTをミントできます' },
   { networkUrl: 'amoy', networkName: 'Amoy', description: 'AmoyのNFTをミントできます' },
   {

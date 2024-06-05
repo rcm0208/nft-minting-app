@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3ModalProvider, useSwitchNetwork, useWeb3Modal } from '@web3modal/ethers/react';
 import { networkConfig } from '@/config/network-config';
-import abiMap from '@/config/abiConfig';
+import { abiMap } from '@/config/abiConfig';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { showMintErrorToast, showMintSuccessToast } from '@/components/mint-result-toast';

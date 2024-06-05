@@ -1,4 +1,4 @@
-interface NetworkConfig {
+export interface NetworkConfig {
   [key: string]: {
     networkId: string;
     mintCollectionAddress: string;
@@ -24,7 +24,7 @@ export const networkConfig: NetworkConfig = {
     faucetUrl: 'https://www.alchemy.com/faucets/polygon-amoy',
   },
   'arbitrum-sepolia': {
-    networkId: '80002',
+    networkId: '421614',
     mintCollectionAddress: '',
     rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
     explorerUrl: 'https://sepolia.arbiscan.io',

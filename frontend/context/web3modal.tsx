@@ -27,6 +27,13 @@ const chains = [
     explorerUrl: 'https://amoy.polygonscan.com',
     rpcUrl: 'https://rpc-amoy.polygon.technology',
   },
+  {
+    chainId: 421614,
+    name: 'Arbitrum Sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia.arbiscan.io',
+    rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
+  },
 ];
 
 // 3. Create a metadata object
