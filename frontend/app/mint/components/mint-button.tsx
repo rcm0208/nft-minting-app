@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3ModalProvider, useSwitchNetwork, useWeb3Modal } from '@web3modal/ethers/react';
 import { networkConfig } from '@/config/network-config';
-import abiMap from '@/config/abiConfig';
+import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { showMintErrorToast, showMintSuccessToast } from '@/components/mint-result-toast';
@@ -77,7 +77,7 @@ export default function MintButton({
 
       // ミントに必要な情報を取得
       const signer = await provider.getSigner();
-      const contractModule = abiMap[networkId];
+      const contractModule = standardERC721AbiMap[networkId];
 
       if (!contractModule || !contractAddress) {
         console.error('No ABI or contract address found for the specified network');

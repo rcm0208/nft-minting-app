@@ -1,19 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { notFound } from 'next/navigation';
-import { networkData } from '../components/network-data';
 import { networkConfig } from '@/config/network-config';
-import abiMap from '@/config/abiConfig';
 import { useWeb3ModalProvider } from '@web3modal/ethers/react';
 import { MintResultToast } from '@/components/mint-result-toast';
+import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
-import Image from 'next/image';
 import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 import Link from 'next/link';
+import { networkData } from '@/config/network-data';
+import Slideshow from '@/components/slide-show';
 
 interface Params {
   params: {
@@ -30,6 +30,7 @@ export default function MintNetworkPage({ params }: Params) {
   const [totalSupply, setTotalSupply] = useState<number | null>(null); // 現在の供給量
   const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // 1回の最大ミント数
   const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(null); // 現在のネットワークID
+  const [error, setError] = useState<string | null>(null); // エラーメッセージ
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
   // 選択したネットワーク名からネットワーク情報を取得
@@ -44,21 +45,31 @@ export default function MintNetworkPage({ params }: Params) {
 
     // コントラクトの最大供給量、現在の供給量、1回の最大ミント数を取得
     async function fetchSupplyData() {
-      const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-      const contractModule = abiMap[config.networkId];
-      const contract = new ethers.Contract(
-        config.mintCollectionAddress,
-        contractModule.abi,
-        provider
-      );
+      try {
+        const provider = new ethers.JsonRpcProvider(config.rpcUrl);
+        const contractModule = standardERC721AbiMap[config.networkId];
 
-      const maxSupply = await contract.maxSupply();
-      const totalSupply = await contract.totalSupply();
-      const maxMintAmount = await contract.maxMintAmount();
+        if (!contractModule || !config.mintCollectionAddress) {
+          throw new Error('Contract information is missing');
+        }
 
-      setMaxSupply(Number(maxSupply));
-      setTotalSupply(Number(totalSupply));
-      setMaxMintAmount(Number(maxMintAmount));
+        const contract = new ethers.Contract(
+          config.mintCollectionAddress,
+          contractModule.abi,
+          provider
+        );
+
+        const maxSupply = await contract.maxSupply();
+        const totalSupply = await contract.totalSupply();
+        const maxMintAmount = await contract.maxMintAmount();
+
+        setMaxSupply(Number(maxSupply));
+        setTotalSupply(Number(totalSupply));
+        setMaxMintAmount(Number(maxMintAmount));
+      } catch (error) {
+        console.error('Failed to fetch contract data:', error);
+        setError('Failed to load contract data');
+      }
     }
 
     // 現在のネットワークIDを取得
@@ -78,16 +89,26 @@ export default function MintNetworkPage({ params }: Params) {
   const updateTotalSupply = async () => {
     if (!config) return;
 
-    const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-    const contractModule = abiMap[config.networkId];
-    const contract = new ethers.Contract(
-      config.mintCollectionAddress,
-      contractModule.abi,
-      provider
-    );
+    try {
+      const provider = new ethers.JsonRpcProvider(config.rpcUrl);
+      const contractModule = standardERC721AbiMap[config.networkId];
 
-    const totalSupply = await contract.totalSupply();
-    setTotalSupply(Number(totalSupply));
+      if (!contractModule || !config.mintCollectionAddress) {
+        throw new Error('Contract information is missing');
+      }
+
+      const contract = new ethers.Contract(
+        config.mintCollectionAddress,
+        contractModule.abi,
+        provider
+      );
+
+      const totalSupply = await contract.totalSupply();
+      setTotalSupply(Number(totalSupply));
+    } catch (error) {
+      console.error('Failed to update total supply:', error);
+      setError('Failed to update total supply');
+    }
   };
 
   if (!network || !config) {
@@ -104,13 +125,7 @@ export default function MintNetworkPage({ params }: Params) {
       <div className="py-5 lg:py-40 flex items-center justify-between">
         <div className="container mx-auto flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/2 w-full lg:pl-8 mt-8 lg:mt-0 flex justify-center order-1">
-            <Image
-              src="/pet-nft-1.jpeg"
-              alt="NFT Image"
-              width={400}
-              height={400}
-              className="max-w-full h-auto rounded-lg shadow-lg"
-            />
+            <Slideshow />
           </div>
 
           <div className="lg:w-1/2 w-full lg:pr-8 order-2 mt-8 lg:mt-0 text-center lg:text-left flex flex-col">
@@ -118,8 +133,12 @@ export default function MintNetworkPage({ params }: Params) {
             <p className="text-muted-foreground mb-6">Free NFT Collection</p>
 
             <div className="flex justify-center lg:justify-start mb-6 text-primary">
-              <MaxMintAmountDisplay maxMintAmount={maxMintAmount} />
-              <SupplyDisplay maxSupply={maxSupply} totalSupply={totalSupply} />
+              {!error && (
+                <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
+                  <MaxMintAmountDisplay maxMintAmount={maxMintAmount} />
+                </div>
+              )}
+              <SupplyDisplay maxSupply={maxSupply} totalSupply={totalSupply} error={error} />
             </div>
 
             <div className="flex justify-center lg:justify-start mb-2">

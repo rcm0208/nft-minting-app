@@ -27,6 +27,27 @@ const chains = [
     explorerUrl: 'https://amoy.polygonscan.com',
     rpcUrl: 'https://rpc-amoy.polygon.technology',
   },
+  {
+    chainId: 97,
+    name: 'BNB Smart Chain Testnet',
+    currency: 'BNB',
+    explorerUrl: 'https://testnet.bscscan.com',
+    rpcUrl: 'https://bsc-testnet-dataseed.bnbchain.org',
+  },
+  {
+    chainId: 421614,
+    name: 'Arbitrum Sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia.arbiscan.io',
+    rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
+  },
+  {
+    chainId: 84532,
+    name: 'Base Sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia.basescan.org',
+    rpcUrl: 'https://sepolia.base.org',
+  },
 ];
 
 // 3. Create a metadata object

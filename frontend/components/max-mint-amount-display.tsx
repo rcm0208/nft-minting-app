@@ -8,7 +8,7 @@ interface MaxMintAmountDisplayProps {
 
 export default function MaxMintAmountDisplay({ maxMintAmount }: MaxMintAmountDisplayProps) {
   return (
-    <div className="bg-primary-foreground py-2 px-4 rounded-lg mr-4 shadow-inner">
+    <>
       {maxMintAmount !== null ? (
         <p>{`Max Mint Amount: ${maxMintAmount}`}</p>
       ) : (
@@ -17,6 +17,6 @@ export default function MaxMintAmountDisplay({ maxMintAmount }: MaxMintAmountDis
           <p>Loading max mint amount...</p>
         </div>
       )}
-    </div>
+    </>
   );
 }
