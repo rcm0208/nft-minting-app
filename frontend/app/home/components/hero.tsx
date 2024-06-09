@@ -19,7 +19,7 @@ export default function Hero() {
         </div>
         <div className="lg:w-1/2 w-full lg:pl-8 mt-8 lg:mt-0 flex justify-center order-1 lg:order-2">
           <Image
-            src="/pet-nft-1.jpeg"
+            src="/image/pet-nft-1.jpeg"
             alt="Hero Image"
             width={500}
             height={500}
