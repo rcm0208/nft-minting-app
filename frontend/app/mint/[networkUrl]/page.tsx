@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { notFound } from 'next/navigation';
 import { networkConfig } from '@/config/network-config';
@@ -9,7 +9,6 @@ import { MintResultToast } from '@/components/mint-result-toast';
 import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 import MintQuantitySelector from '@/components/mint-quantity-selector';
 import MintButton from '../components/mint-button';
-import Image from 'next/image';
 import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 import Link from 'next/link';
