@@ -36,8 +36,10 @@ export default function MintButton({
   const web3Modal = useWeb3Modal(); // Web3Modalインスタンスを取得
   const [isNetworkSwitching, setIsNetworkSwitching] = useState(false); // ネットワーク切り替え中かどうかを示すフラグ
   const [initialMintAttempted, setInitialMintAttempted] = useState(false); // 初回ミント試行フラグ
-
-  const contractAddress = networkConfig[networkName]?.mintCollectionAddress; // コントラクトアドレスを取得
+  const network = networkConfig.find(
+    (net) => net.networkName.toLowerCase().replace(/ /g, '-') === networkName
+  );
+  const contractAddress = network?.mintCollectionAddress; // コントラクトアドレスを取得
 
   const handleMint = useCallback(async () => {
     if (!walletProvider) {

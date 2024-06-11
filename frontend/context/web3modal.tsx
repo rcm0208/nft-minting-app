@@ -2,6 +2,7 @@
 
 'use client';
 
+import { networkConfig } from '@/config/network-config';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { ReactNode } from 'react';
 
@@ -12,43 +13,13 @@ if (!projectId) {
 }
 
 // 2. Set chains
-const chains = [
-  {
-    chainId: 11155111,
-    name: 'Sepolia',
-    currency: 'ETH',
-    explorerUrl: 'https://sepolia.etherscan.io',
-    rpcUrl: 'https://11155111.rpc.thirdweb.com',
-  },
-  {
-    chainId: 80002,
-    name: 'Amoy',
-    currency: 'MATIC',
-    explorerUrl: 'https://amoy.polygonscan.com',
-    rpcUrl: 'https://rpc-amoy.polygon.technology',
-  },
-  {
-    chainId: 97,
-    name: 'BNB Smart Chain Testnet',
-    currency: 'BNB',
-    explorerUrl: 'https://testnet.bscscan.com',
-    rpcUrl: 'https://bsc-testnet-dataseed.bnbchain.org',
-  },
-  {
-    chainId: 421614,
-    name: 'Arbitrum Sepolia',
-    currency: 'ETH',
-    explorerUrl: 'https://sepolia.arbiscan.io',
-    rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
-  },
-  {
-    chainId: 84532,
-    name: 'Base Sepolia',
-    currency: 'ETH',
-    explorerUrl: 'https://sepolia.basescan.org',
-    rpcUrl: 'https://sepolia.base.org',
-  },
-];
+const chains = networkConfig.map((value) => ({
+  chainId: parseInt(value.networkId, 10),
+  name: value.networkName,
+  currency: value.currency,
+  explorerUrl: value.explorerUrl || '',
+  rpcUrl: value.rpcUrl,
+}));
 
 // 3. Create a metadata object
 const metadata = {
