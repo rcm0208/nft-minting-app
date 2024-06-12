@@ -24,19 +24,20 @@ async function main() {
     return;
   }
 
+  let contractAddress;
+  try {
+    contractAddress = await StandardERC721A.getAddress();
+  } catch (error) {
+    console.error("🔴 Failed to get contract address:", error, "\n");
+    return;
+  }
+
   const deployEndTime = Date.now();
   const deployTime = (deployEndTime - deployStartTime) / 1000;
   const networkName = hre.network.name;
 
   console.log("------------------------------------------------------------\n");
-  try {
-    console.log(
-      `🔍 StandardERC721A deployed to: ${await StandardERC721A.getAddress()}`
-    );
-  } catch (error) {
-    console.error("🔴 Failed to get contract address:", error, "\n");
-    return;
-  }
+  console.log(`🔍 StandardERC721A deployed to: ${contractAddress}`);
   console.log(`🔍 Deployed on network: ${networkName}`);
   console.log(`🔍 Deployment time: ${deployTime.toFixed(2)} seconds \n`);
   console.log("------------------------------------------------------------\n");

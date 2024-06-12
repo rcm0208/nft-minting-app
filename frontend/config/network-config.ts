@@ -37,13 +37,22 @@ export const networkConfig: NetworkConfig[] = [
     mintCollectionAddress: '', // FIXME: BSC Testnetのコントラクトをデプロイ後に変更
   },
   {
+    networkId: '11155420',
+    networkName: 'Optimism Sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia-optimistic.etherscan.io',
+    rpcUrl: 'https://sepolia.optimism.io',
+    faucetUrl: 'https://www.alchemy.com/faucets/optimism-sepolia',
+    mintCollectionAddress: '0xFba4E6480F286464FBc96f81C5859D7B23b683E2',
+  },
+  {
     networkId: '421614',
     networkName: 'Arbitrum Sepolia',
     currency: 'ETH',
     explorerUrl: 'https://sepolia.arbiscan.io',
     rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
     faucetUrl: 'https://www.alchemy.com/faucets/arbitrum-sepolia',
-    mintCollectionAddress: '', // FIXME: Arbitrum Sepoliaのコントラクトをデプロイ後に変更
+    mintCollectionAddress: '0x95E4Fd4889a8bEfCC99390C061474Cf1B9D4CF52',
   },
   {
     networkId: '84532',
@@ -52,6 +61,6 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.basescan.org',
     rpcUrl: 'https://sepolia.base.org',
     faucetUrl: 'https://www.alchemy.com/faucets/base-sepolia',
-    mintCollectionAddress: '', // FIXME: Base Sepoliaのコントラクトをデプロイ後に変更
+    mintCollectionAddress: '0xFba4E6480F286464FBc96f81C5859D7B23b683E2',
   },
 ];
