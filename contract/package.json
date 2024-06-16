@@ -8,7 +8,7 @@
     "clear": "yarn run clean && rimraf node_module yarn.lock",
     "compile": "hardhat compile",
     "balance": "hardhat balance",
-    "test": "hardhat test",
+    "test": "hardhat test --network hardhat",
     "test-standard-erc721a": "hardhat clean && hardhat compile && hardhat test test/erc721a/StandardERC721A.test.ts",
     "deploy-standard-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/erc721a/deploy.ts"
   },
