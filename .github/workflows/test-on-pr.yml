@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: List current directory
-        run: ls -la
-
       - name: Install dependencies
         run: |
           cd contract
