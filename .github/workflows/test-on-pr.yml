@@ -20,15 +20,12 @@ jobs:
       - name: List current directory
         run: ls -la
 
-      - name: List contents of nft-minting-app
-        run: ls -la nft-minting-app
-
       - name: Install dependencies
         run: |
-          cd nft-minting-app/contract
+          cd contract
           yarn install
 
       - name: Run tests
         run: |
-          cd nft-minting-app/contract
+          cd contract
           yarn test
