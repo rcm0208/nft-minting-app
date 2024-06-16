@@ -12,7 +12,6 @@ import MintButton from '../components/mint-button';
 import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 import Link from 'next/link';
-import { networkData } from '@/config/network-data';
 import Slideshow from '@/components/slide-show';
 
 interface Params {
@@ -34,11 +33,12 @@ export default function MintNetworkPage({ params }: Params) {
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
   // 選択したネットワーク名からネットワーク情報を取得
-  const network = networkData.find((net) => net.networkUrl === networkUrl);
-  const config = networkConfig[networkUrl];
+  const network = networkConfig.find(
+    (net) => net.networkName.toLowerCase().replace(/ /g, '-') === networkUrl
+  );
 
   useEffect(() => {
-    if (!network || !config) {
+    if (!network) {
       notFound();
       return;
     }
@@ -46,15 +46,19 @@ export default function MintNetworkPage({ params }: Params) {
     // コントラクトの最大供給量、現在の供給量、1回の最大ミント数を取得
     async function fetchSupplyData() {
       try {
-        const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-        const contractModule = standardERC721AbiMap[config.networkId];
+        if (!network) {
+          throw new Error('Network is undefined');
+        }
 
-        if (!contractModule || !config.mintCollectionAddress) {
+        const provider = new ethers.JsonRpcProvider(network.rpcUrl);
+        const contractModule = standardERC721AbiMap[network.networkId];
+
+        if (!contractModule || !network.mintCollectionAddress) {
           throw new Error('Contract information is missing');
         }
 
         const contract = new ethers.Contract(
-          config.mintCollectionAddress,
+          network.mintCollectionAddress,
           contractModule.abi,
           provider
         );
@@ -83,22 +87,22 @@ export default function MintNetworkPage({ params }: Params) {
 
     fetchSupplyData();
     getCurrentNetwork();
-  }, [network, config, walletProvider]);
+  }, [network, walletProvider]);
 
   // 現在の供給量を更新
   const updateTotalSupply = async () => {
-    if (!config) return;
+    if (!network) return;
 
     try {
-      const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-      const contractModule = standardERC721AbiMap[config.networkId];
+      const provider = new ethers.JsonRpcProvider(network.rpcUrl);
+      const contractModule = standardERC721AbiMap[network.networkId];
 
-      if (!contractModule || !config.mintCollectionAddress) {
+      if (!contractModule || !network.mintCollectionAddress) {
         throw new Error('Contract information is missing');
       }
 
       const contract = new ethers.Contract(
-        config.mintCollectionAddress,
+        network.mintCollectionAddress,
         contractModule.abi,
         provider
       );
@@ -111,7 +115,7 @@ export default function MintNetworkPage({ params }: Params) {
     }
   };
 
-  if (!network || !config) {
+  if (!network) {
     return null;
   }
 
@@ -153,7 +157,7 @@ export default function MintNetworkPage({ params }: Params) {
             <div className="flex justify-center lg:justify-start">
               <MintButton
                 networkName={networkUrl}
-                networkId={config.networkId}
+                networkId={network.networkId}
                 quantity={quantity}
                 isMinting={isMinting}
                 setIsMinting={setIsMinting}
@@ -164,9 +168,9 @@ export default function MintNetworkPage({ params }: Params) {
               />
             </div>
 
-            {config.faucetUrl && (
+            {network.faucetUrl && (
               <div className="flex justify-center lg:justify-start mt-4">
-                <Link href={config.faucetUrl as string} target="_blank" rel="noopener noreferrer">
+                <Link href={network.faucetUrl as string} target="_blank" rel="noopener noreferrer">
                   Faucet Click Here
                 </Link>
               </div>

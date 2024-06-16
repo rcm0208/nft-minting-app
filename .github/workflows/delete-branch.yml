@@ -1,0 +1,22 @@
+name: Delete Branch After Merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  delete_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Delete branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME=$(git log -1 --pretty=%B | sed 's/^Merge pull request #.* from .*\/\(.*\)$/\1/')
+          if [ "$BRANCH_NAME" != "main" ]; then
+            git push origin --delete $BRANCH_NAME
+          fi
