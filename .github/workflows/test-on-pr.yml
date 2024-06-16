@@ -17,6 +17,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: List current directory
+        run: ls -la
+
+      - name: List contents of nft-minting-app
+        run: ls -la nft-minting-app
+
       - name: Install dependencies
         run: |
           cd nft-minting-app/contract
