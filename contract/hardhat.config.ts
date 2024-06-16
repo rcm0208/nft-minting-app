@@ -3,18 +3,23 @@ dotEnvConfig();
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
+const accounts = process.env.DEPLOYER_KEY
+  ? [`0x${process.env.DEPLOYER_KEY}`]
+  : [];
+
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
   networks: {
+    hardhat: {},
     sepolia: {
       chainId: 11155111,
       url: process.env.SEPOLIA_RPC_URL || process.env.SEPOLIA_ALCHEMY_KEY || "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
     amoy: {
       chainId: 80002,
       url: process.env.AMOY_RPC_URL || process.env.AMOY_ALCHEMY_KEY || "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
     bsc_testnet: {
       chainId: 97,
@@ -22,7 +27,7 @@ const config: HardhatUserConfig = {
         process.env.BSC_TESTNET_RPC_URL ||
         process.env.BSC_TESTNET_ALCHEMY_KEY ||
         "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
     optimism_sepolia: {
       chainId: 11155420,
@@ -30,7 +35,7 @@ const config: HardhatUserConfig = {
         process.env.OPTIMISM_SEPOLIA_RPC_URL ||
         process.env.OPTIMISM_SEPOLIA_ALCHEMY_KEY ||
         "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
     arbitrum_sepolia: {
       chainId: 421614,
@@ -38,7 +43,7 @@ const config: HardhatUserConfig = {
         process.env.ARBITRUM_SEPOLIA_RPC_URL ||
         process.env.ARBITRUM_SEPOLIA_ALCHEMY_KEY ||
         "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
     base_sepolia: {
       chainId: 84532,
@@ -46,7 +51,7 @@ const config: HardhatUserConfig = {
         process.env.BASE_SEPOLIA_RPC_URL ||
         process.env.BASE_SEPOLIA_ALCHEMY_KEY ||
         "",
-      accounts: [`0x${process.env.DEPLOYER_KEY}` || ""],
+      accounts,
     },
   },
   etherscan: {
