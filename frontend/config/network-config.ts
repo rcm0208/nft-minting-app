@@ -16,7 +16,7 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.etherscan.io',
     rpcUrl: 'https://11155111.rpc.thirdweb.com',
     faucetUrl: 'https://www.alchemy.com/faucets/ethereum-sepolia',
-    mintCollectionAddress: '0xaefCF8555c9f54AE2F683514513F77Db5Bbc67de',
+    mintCollectionAddress: '0x7d542EE667dabF130cC8d329f37850f0981969d8',
   },
   {
     networkId: '80002',
@@ -61,6 +61,6 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.basescan.org',
     rpcUrl: 'https://sepolia.base.org',
     faucetUrl: 'https://www.alchemy.com/faucets/base-sepolia',
-    mintCollectionAddress: '0xFba4E6480F286464FBc96f81C5859D7B23b683E2',
+    mintCollectionAddress: '0x8551772BF52dBfc5092611622764Ef5C5E9A1653',
   },
 ];

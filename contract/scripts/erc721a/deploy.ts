@@ -13,17 +13,21 @@ async function main() {
     MAX_SUPPLY,
     MAX_MINT_AMOUNT,
   } = ERC721A_PARAMS;
+
   const deployStartTime = Date.now();
 
+  // デプロイ
   let StandardERC721A;
   try {
     const deployResult = await hre.ignition.deploy(StandardERC721AModule);
     StandardERC721A = deployResult.StandardERC721A;
+    console.log("🟢 Contract deployed successfully.\n");
   } catch (error) {
     console.error("🔴 Failed to deploy contract:", error, "\n");
     return;
   }
 
+  // コントラクトアドレス取得
   let contractAddress;
   try {
     contractAddress = await StandardERC721A.getAddress();
@@ -32,6 +36,44 @@ async function main() {
     return;
   }
 
+  // ガス代計算
+  let gasCostInEth;
+  try {
+    const blockNumber = await hre.ethers.provider.getBlockNumber();
+
+    const filter = {
+      address: contractAddress,
+      fromBlock: blockNumber - 10, // 少し前のブロックから取得
+      toBlock: "latest", // 最新のブロック
+    };
+
+    // デプロイトランザクションのログを取得
+    const logs = await hre.ethers.provider.getLogs(filter);
+    if (logs.length === 0) throw new Error("Deployment event not found.");
+
+    const txHash = logs[0].transactionHash;
+    const txReceipt = await hre.ethers.provider.getTransactionReceipt(txHash);
+    if (!txReceipt) throw new Error("Transaction receipt not found.");
+
+    // トランザクションを取得
+    const transaction = await hre.ethers.provider.getTransaction(txHash);
+    if (!transaction) throw new Error("Transaction details not found.");
+
+    const gasUsed = txReceipt.gasUsed;
+    const gasPrice = transaction.gasPrice;
+
+    // ガス代を手動で計算してETHに変換
+    const gasCost = gasUsed * gasPrice;
+    const weiToEth = 10n ** 18n;
+    gasCostInEth = Number(gasCost) / Number(weiToEth);
+    if (!gasCostInEth) {
+      throw new Error("Failed to calculate gas cost.");
+    }
+  } catch (error) {
+    console.error("🔴 Error calculating gas cost:", error, "\n");
+  }
+
+  // デプロイ時間
   const deployEndTime = Date.now();
   const deployTime = (deployEndTime - deployStartTime) / 1000;
   const networkName = hre.network.name;
@@ -39,6 +81,7 @@ async function main() {
   console.log("------------------------------------------------------------\n");
   console.log(`🔍 StandardERC721A deployed to: ${contractAddress}`);
   console.log(`🔍 Deployed on network: ${networkName}`);
+  console.log(`🔍 Gas cost: ${gasCostInEth?.toFixed(18)} ETH`);
   console.log(`🔍 Deployment time: ${deployTime.toFixed(2)} seconds \n`);
   console.log("------------------------------------------------------------\n");
 
