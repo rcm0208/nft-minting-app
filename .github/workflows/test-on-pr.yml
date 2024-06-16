@@ -26,6 +26,8 @@ jobs:
           yarn install
 
       - name: Run tests
+        env:
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_KEY }}
         run: |
           cd contract
           yarn test
