@@ -33,9 +33,7 @@ export default function MintNetworkPage({ params }: Params) {
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
   // 選択したネットワーク名からネットワーク情報を取得
-  const network = networkConfig.find(
-    (net) => net.networkName.toLowerCase().replace(/ /g, '-') === networkUrl
-  );
+  const network = networkConfig.find((net) => net.networkUrl === networkUrl);
 
   useEffect(() => {
     if (!network) {
