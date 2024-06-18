@@ -7,6 +7,7 @@ import { ModeToggle } from './mode-toggle';
 import { useTheme } from 'next-themes';
 import { useWeb3ModalTheme } from '@web3modal/ethers/react';
 import Image from 'next/image';
+import { MobileNav } from './mobile-nav';
 
 export default function Header() {
   const navItems = [{ label: 'Mint', href: '/mint' }];
@@ -23,10 +24,15 @@ export default function Header() {
   return (
     <header className="border-b">
       <div className="h-16 container flex items-center justify-between">
-        <h1 className="font-bold">
-          <Link href="/">
-            <Image src="/image/logo.svg" alt="logo" width={40} height={40}></Image>
-          </Link>
+        <h1>
+          <div className="lg:hidden">
+            <MobileNav />
+          </div>
+          <div className="hidden lg:block">
+            <Link href="/">
+              <Image src="/image/logo.svg" alt="logo" width={40} height={40} />
+            </Link>
+          </div>
         </h1>
         <div className="flex items-center gap-4">
           <ul className="flex gap-4">
