@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { Button } from './ui/button';
 import { ModeToggle } from './mode-toggle';
 import { useTheme } from 'next-themes';
 import { useWeb3ModalTheme } from '@web3modal/ethers/react';
 import Image from 'next/image';
 import { MobileNav } from './mobile-nav';
+import NavMenu from './nav-menu';
 
 export default function Header() {
   const navItems = [{ label: 'Mint', href: '/mint' }];
@@ -35,17 +35,11 @@ export default function Header() {
           </div>
         </h1>
         <div className="flex items-center gap-4">
-          <ul className="flex gap-4">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <Button variant="ghost" asChild>
-                  <Link href={item.href}>{item.label}</Link>
-                </Button>
-              </li>
-            ))}
-            <w3m-button />
-            <ModeToggle />
-          </ul>
+          <div className="hidden lg:block">
+            <NavMenu />
+          </div>
+          <w3m-button />
+          <ModeToggle />
         </div>
       </div>
     </header>
