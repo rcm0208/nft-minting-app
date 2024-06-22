@@ -6,23 +6,31 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { networkConfig } from '@/config/network-config';
+import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 
 const tags = [
   {
     label: 'Mint',
     id: 'mint',
   },
-  {
-    label: 'Gasless Mint',
-    id: 'gasless-mint',
-  },
+  // {
+  //   label: 'Gasless Mint',
+  //   id: 'gasless-mint',
+  // },
 ];
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubSheetOpen, setIsSubSheetOpen] = useState(false);
 
   const handleLinkClick = () => {
     setIsOpen(false);
+    setIsSubSheetOpen(false);
+  };
+
+  const handleMintClick = () => {
+    setIsSubSheetOpen(true);
   };
 
   return (
@@ -44,13 +52,37 @@ export function MobileNav() {
         </SheetHeader>
         <div className="flex flex-col">
           {tags.map((tag) => (
-            <Button variant="ghost" className="justify-start" key={tag.id} asChild>
-              <Link href={`/${tag.id}`} onClick={handleLinkClick}>
-                {tag.label}
-              </Link>
+            <Button
+              variant="ghost"
+              className="justify-start"
+              key={tag.id}
+              onClick={tag.id === 'mint' ? handleMintClick : handleLinkClick}
+            >
+              {tag.label}
             </Button>
           ))}
         </div>
+        <Sheet open={isSubSheetOpen} onOpenChange={setIsSubSheetOpen}>
+          <SheetContent side="left">
+            <SheetHeader className="pb-4">
+              <SheetTitle>Mint Networks</SheetTitle>
+            </SheetHeader>
+            <div className="flex flex-col">
+              {networkConfig
+                .filter(
+                  (network) =>
+                    network.mintCollectionAddress && standardERC721AbiMap[network.networkId]
+                )
+                .map((network) => (
+                  <Button variant="ghost" className="justify-start" key={network.networkId} asChild>
+                    <Link href={`/mint/${network.networkUrl}`} onClick={handleLinkClick}>
+                      {network.networkName}
+                    </Link>
+                  </Button>
+                ))}
+            </div>
+          </SheetContent>
+        </Sheet>
       </SheetContent>
     </Sheet>
   );
