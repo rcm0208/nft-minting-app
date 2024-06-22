@@ -14,17 +14,6 @@ import {
 import { networkConfig } from '@/config/network-config';
 import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
 
-const components: { title: string; href: string }[] = [
-  {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
-  },
-  {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
-  },
-];
-
 export default function NavMenu() {
   return (
     <NavigationMenu>
