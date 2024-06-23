@@ -18,11 +18,17 @@ const settings = {
 
 export default function Slideshow() {
   return (
-    <div className="w-full h-auto rounded-lg">
+    <div className="w-full h-auto">
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <Image src={src} alt={`NFT Image ${index + 1}`} width={400} height={400} />
+            <Image
+              src={src}
+              alt={`NFT Image ${index + 1}`}
+              width={400}
+              height={400}
+              className="rounded-lg shadow-lg"
+            />
           </div>
         ))}
       </Slider>

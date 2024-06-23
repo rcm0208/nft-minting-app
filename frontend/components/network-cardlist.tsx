@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NetworkCardlist({ network }: { network: NetworkConfig }) {
-  const networkUrl = network.networkName.toLowerCase().replace(/ /g, '-');
+  const networkUrl = network.networkUrl;
 
   return (
     <div className="border relative rounded-md p-6 shadow space-y-3">

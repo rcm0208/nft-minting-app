@@ -21,8 +21,8 @@ export default function Hero() {
           <Image
             src="/image/pet-nft-1.jpeg"
             alt="Hero Image"
-            width={500}
-            height={500}
+            width={600}
+            height={600}
             className="max-w-full h-auto rounded-lg shadow-lg"
           />
         </div>

@@ -1,6 +1,7 @@
 export interface NetworkConfig {
   networkId: string;
   networkName: string;
+  networkUrl: string;
   currency: string;
   explorerUrl?: string;
   rpcUrl: string;
@@ -12,6 +13,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '11155111',
     networkName: 'Sepolia',
+    networkUrl: 'sepolia',
     currency: 'ETH',
     explorerUrl: 'https://sepolia.etherscan.io',
     rpcUrl: 'https://11155111.rpc.thirdweb.com',
@@ -21,6 +23,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '80002',
     networkName: 'Amoy',
+    networkUrl: 'amoy',
     currency: 'MATIC',
     explorerUrl: 'https://amoy.polygonscan.com',
     rpcUrl: 'https://rpc-amoy.polygon.technology',
@@ -30,6 +33,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '97',
     networkName: 'BSC Testnet',
+    networkUrl: 'bsc-testnet',
     currency: 'BNB',
     explorerUrl: 'https://testnet.bscscan.com',
     rpcUrl: 'https://bsc-testnet-dataseed.bnbchain.org',
@@ -39,6 +43,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '11155420',
     networkName: 'Optimism Sepolia',
+    networkUrl: 'optimism-sepolia',
     currency: 'ETH',
     explorerUrl: 'https://sepolia-optimistic.etherscan.io',
     rpcUrl: 'https://sepolia.optimism.io',
@@ -48,6 +53,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '421614',
     networkName: 'Arbitrum Sepolia',
+    networkUrl: 'arbitrum-sepolia',
     currency: 'ETH',
     explorerUrl: 'https://sepolia.arbiscan.io',
     rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
@@ -57,6 +63,7 @@ export const networkConfig: NetworkConfig[] = [
   {
     networkId: '84532',
     networkName: 'Base Sepolia',
+    networkUrl: 'base-sepolia',
     currency: 'ETH',
     explorerUrl: 'https://sepolia.basescan.org',
     rpcUrl: 'https://sepolia.base.org',
