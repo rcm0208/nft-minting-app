@@ -1,3 +1,9 @@
+import sepoliaContractAddresses from '../../contract/ignition/deployments/chain-11155111/deployed_addresses.json';
+import amoyContractAddresses from '../../contract/ignition/deployments/chain-80002/deployed_addresses.json';
+import optimismSepoliaContractAddresses from '../../contract/ignition/deployments/chain-11155420/deployed_addresses.json';
+import arbitrumSepoliaContractAddresses from '../../contract/ignition/deployments/chain-421614/deployed_addresses.json';
+import baseSepoliaContractAddresses from '../../contract/ignition/deployments/chain-84532/deployed_addresses.json';
+
 export interface NetworkConfig {
   networkId: string;
   networkName: string;
@@ -18,7 +24,7 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.etherscan.io',
     rpcUrl: 'https://11155111.rpc.thirdweb.com',
     faucetUrl: 'https://www.alchemy.com/faucets/ethereum-sepolia',
-    mintCollectionAddress: '0x7d542EE667dabF130cC8d329f37850f0981969d8',
+    mintCollectionAddress: sepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
   },
   {
     networkId: '80002',
@@ -28,7 +34,7 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://amoy.polygonscan.com',
     rpcUrl: 'https://rpc-amoy.polygon.technology',
     faucetUrl: 'https://www.alchemy.com/faucets/polygon-amoy',
-    mintCollectionAddress: '0x741924D23a4Ff0c7Ce613E78f6460708002A34b3',
+    mintCollectionAddress: amoyContractAddresses['StandardERC721AModule#StandardERC721A'],
   },
   {
     networkId: '97',
@@ -48,7 +54,8 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia-optimistic.etherscan.io',
     rpcUrl: 'https://sepolia.optimism.io',
     faucetUrl: 'https://www.alchemy.com/faucets/optimism-sepolia',
-    mintCollectionAddress: '0xFba4E6480F286464FBc96f81C5859D7B23b683E2',
+    mintCollectionAddress:
+      optimismSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
   },
   {
     networkId: '421614',
@@ -58,7 +65,8 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.arbiscan.io',
     rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
     faucetUrl: 'https://www.alchemy.com/faucets/arbitrum-sepolia',
-    mintCollectionAddress: '0x95E4Fd4889a8bEfCC99390C061474Cf1B9D4CF52',
+    mintCollectionAddress:
+      arbitrumSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
   },
   {
     networkId: '84532',
@@ -68,6 +76,6 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://sepolia.basescan.org',
     rpcUrl: 'https://sepolia.base.org',
     faucetUrl: 'https://www.alchemy.com/faucets/base-sepolia',
-    mintCollectionAddress: '0x8551772BF52dBfc5092611622764Ef5C5E9A1653',
+    mintCollectionAddress: baseSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
   },
 ];
