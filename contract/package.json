@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "clean": "hardhat clean",
     "clear": "yarn run clean && rimraf node_module yarn.lock",
@@ -36,6 +37,5 @@
     "ts-node": ">=8.0.0",
     "typechain": "^8.3.0",
     "typescript": ">=4.5.0"
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  }
 }
