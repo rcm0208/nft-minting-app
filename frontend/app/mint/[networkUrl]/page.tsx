@@ -13,6 +13,8 @@ import SupplyDisplay from '@/components/supply-display';
 import MaxMintAmountDisplay from '@/components/max-mint-amount-display';
 import Link from 'next/link';
 import Slideshow from '@/components/slide-show';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 interface Params {
   params: {
@@ -30,6 +32,7 @@ export default function MintNetworkPage({ params }: Params) {
   const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // 1回の最大ミント数
   const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(null); // 現在のネットワークID
   const [error, setError] = useState<string | null>(null); // エラーメッセージ
+  const [mintSuccess, setMintSuccess] = useState(false); // ミント成功フラグ
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
 
   // 選択したネットワーク名からネットワーク情報を取得
@@ -153,23 +156,44 @@ export default function MintNetworkPage({ params }: Params) {
             </div>
 
             <div className="flex justify-center lg:justify-start">
-              <MintButton
-                networkName={networkUrl}
-                networkId={network.networkId}
-                quantity={quantity}
-                isMinting={isMinting}
-                setIsMinting={setIsMinting}
-                isSoldOut={isSoldOut}
-                currentNetworkId={currentNetworkId}
-                setCurrentNetworkId={setCurrentNetworkId}
-                updateTotalSupply={updateTotalSupply}
-              />
+              {!mintSuccess ? (
+                <MintButton
+                  networkName={networkUrl}
+                  networkId={network.networkId}
+                  quantity={quantity}
+                  isMinting={isMinting}
+                  setIsMinting={setIsMinting}
+                  isSoldOut={isSoldOut}
+                  currentNetworkId={currentNetworkId}
+                  setCurrentNetworkId={setCurrentNetworkId}
+                  updateTotalSupply={updateTotalSupply}
+                  onMintSuccess={() => setMintSuccess(true)} // ミント成功時に状態を更新
+                />
+              ) : (
+                <Link
+                  href="https://testnets.opensea.io/account"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center"
+                >
+                  <Button className="w-[400px] lg:w-[500px]" size={'lg'}>
+                    <Image
+                      src="/image/opensea-logo.png"
+                      alt="opensea"
+                      width={20}
+                      height={20}
+                      className="mr-2"
+                    />
+                    Check your NFT on OpenSea
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {network.faucetUrl && (
               <div className="flex justify-center lg:justify-start mt-4">
                 <Link href={network.faucetUrl as string} target="_blank" rel="noopener noreferrer">
-                  Faucet Click Here
+                  Get Gas Fee Here
                 </Link>
               </div>
             )}
