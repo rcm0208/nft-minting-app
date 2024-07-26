@@ -193,7 +193,7 @@ export default function MintNetworkPage({ params }: Params) {
             {network.faucetUrl && (
               <div className="flex justify-center lg:justify-start mt-4">
                 <Link href={network.faucetUrl as string} target="_blank" rel="noopener noreferrer">
-                  Get Gas Fee Here
+                  Get Gas Fee
                 </Link>
               </div>
             )}
