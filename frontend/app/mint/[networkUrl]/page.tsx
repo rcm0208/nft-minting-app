@@ -1,5 +1,6 @@
 'use client';
 
+import { Metadata } from 'next';
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { notFound } from 'next/navigation';
@@ -21,6 +22,18 @@ interface Params {
     networkUrl: string;
   };
 }
+
+// export async function generateMetadata({ params }: Params): Promise<Metadata> {
+//   const { networkUrl } = params;
+//   const network = networkConfig.find((net) => net.networkUrl === networkUrl);
+
+//   const networkName = network ? network.networkName : 'Unknown network';
+
+//   return {
+//     title: `Mint on ${networkName} | NFT Minting App`,
+//     description: `ガス代を支払って${networkName}のERC721 NFTをミントできます`,
+//   };
+// }
 
 export default function MintNetworkPage({ params }: Params) {
   const { networkUrl } = params;
