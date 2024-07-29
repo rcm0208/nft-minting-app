@@ -176,7 +176,7 @@ export default function MintNetworkContent({ params }: Params) {
                   href="https://testnets.opensea.io/account"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center"
+                  className="w-full flex justify-center lg:justify-start"
                 >
                   <Button className="w-[400px] lg:w-[500px]" size={'lg'}>
                     <Image
