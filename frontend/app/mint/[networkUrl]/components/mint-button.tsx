@@ -68,15 +68,27 @@ export default function MintButton({
       if (network.chainId !== BigInt(networkId)) {
         console.log(`Switching network to ${networkId}`);
         setIsNetworkSwitching(true);
-        await switchNetwork(parseInt(networkId, 10));
+
+        // タイムアウト用のPromise
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Network switch timed out')), 30000)
+        );
+
+        // ネットワーク切り替えとタイムアウトの競合
+        await Promise.race([
+          (async () => {
+            await switchNetwork(parseInt(networkId, 10));
+            // ネットワークが切り替わるのを待つ
+            while (network.chainId !== BigInt(networkId)) {
+              provider = new ethers.BrowserProvider(walletProvider);
+              network = await provider.getNetwork();
+            }
+          })(),
+          // 30秒間ネットワーク切り替えが行われなかった場合はエラーとして処理
+          timeoutPromise,
+        ]);
+
         setCurrentNetworkId(networkId);
-
-        // ネットワークが切り替わるのを待つ
-        while (network.chainId !== BigInt(networkId)) {
-          provider = new ethers.BrowserProvider(walletProvider);
-          network = await provider.getNetwork();
-        }
-
         setIsNetworkSwitching(false);
       }
 
