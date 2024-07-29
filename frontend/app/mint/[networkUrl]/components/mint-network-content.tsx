@@ -15,6 +15,8 @@ import Link from 'next/link';
 import Slideshow from '@/components/slide-show';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGasPump } from '@fortawesome/free-solid-svg-icons';
 
 interface Params {
   params: {
@@ -127,7 +129,7 @@ export default function MintNetworkContent({ params }: Params) {
     <>
       <MintResultToast />
 
-      <div className="py-5 lg:py-40 flex items-center justify-between">
+      <div className="pb-6 lg:py-40 flex items-center justify-between">
         <div className="container mx-auto flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/2 w-full lg:pl-8 mt-8 lg:mt-0 flex justify-center order-1">
             <Slideshow />
@@ -193,8 +195,9 @@ export default function MintNetworkContent({ params }: Params) {
             </div>
 
             {network.faucetUrl && (
-              <div className="flex justify-center lg:justify-start mt-4">
+              <div className="flex justify-center lg:justify-start mt-6">
                 <Link href={network.faucetUrl as string} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faGasPump} className='mr-2' />
                   Get Gas Fee
                 </Link>
               </div>
