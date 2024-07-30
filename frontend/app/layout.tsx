@@ -3,13 +3,14 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import { cn } from '@/lib/utils';
+import { cn, getURL } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Web3Modal } from '@/context/web3modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getURL()),
   title: { template: '%s | NFT Minting App', default: 'NFT Minting App' },
   description: '様々な種類のNFTをミントできます。',
 };

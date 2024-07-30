@@ -19,6 +19,7 @@ interface MintButtonProps {
   currentNetworkId: string | null;
   setCurrentNetworkId: (networkId: string) => void;
   updateTotalSupply: () => Promise<void>;
+  onMintSuccess: () => void;
 }
 
 export default function MintButton({
@@ -30,6 +31,7 @@ export default function MintButton({
   isSoldOut,
   setCurrentNetworkId,
   updateTotalSupply,
+  onMintSuccess,
 }: MintButtonProps) {
   const { walletProvider } = useWeb3ModalProvider(); // Web3Modalによるウォレット接続情報を取得
   const { switchNetwork } = useSwitchNetwork(); // ネットワーク切り替え用のフックを取得
@@ -66,15 +68,27 @@ export default function MintButton({
       if (network.chainId !== BigInt(networkId)) {
         console.log(`Switching network to ${networkId}`);
         setIsNetworkSwitching(true);
-        await switchNetwork(parseInt(networkId, 10));
+
+        // タイムアウト用のPromise
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Network switch timed out')), 30000)
+        );
+
+        // ネットワーク切り替えとタイムアウトの競合
+        await Promise.race([
+          (async () => {
+            await switchNetwork(parseInt(networkId, 10));
+            // ネットワークが切り替わるのを待つ
+            while (network.chainId !== BigInt(networkId)) {
+              provider = new ethers.BrowserProvider(walletProvider);
+              network = await provider.getNetwork();
+            }
+          })(),
+          // 30秒間ネットワーク切り替えが行われなかった場合はエラーとして処理
+          timeoutPromise,
+        ]);
+
         setCurrentNetworkId(networkId);
-
-        // ネットワークが切り替わるのを待つ
-        while (network.chainId !== BigInt(networkId)) {
-          provider = new ethers.BrowserProvider(walletProvider);
-          network = await provider.getNetwork();
-        }
-
         setIsNetworkSwitching(false);
       }
 
@@ -94,11 +108,13 @@ export default function MintButton({
       await tx.wait();
       await updateTotalSupply(); // Total Supplyを更新
       showMintSuccessToast(); // 成功時のトースト
+      onMintSuccess();
     } catch (error) {
       console.error('Minting failed:', error);
       showMintErrorToast(); // 失敗時のトースト
     } finally {
       setIsMinting(false);
+      setIsNetworkSwitching(false);
     }
   }, [
     walletProvider,
@@ -112,6 +128,7 @@ export default function MintButton({
     initialMintAttempted,
     contractAddress,
     contractModule,
+    onMintSuccess,
   ]);
 
   // ウォレット接続後に自動的にミントフローを実行
