@@ -6,6 +6,8 @@ import Footer from '@/components/footer';
 import { cn, getURL } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Web3Modal } from '@/context/web3modal';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,6 +16,8 @@ export const metadata: Metadata = {
   title: { template: '%s | NFT Minting App', default: 'NFT Minting App' },
   description: '様々な種類のNFTをミントできます。',
 };
+
+config.autoAddCss = false;
 
 export default function RootLayout({
   children,
