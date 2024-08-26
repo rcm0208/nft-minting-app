@@ -169,4 +169,8 @@ contract GaslessERC721A is ERC721A, Ownable, ReentrancyGuard {
                 ? temporaryMintLimit[wallet]
                 : maxMintPerAddress;
     }
+
+    function getNonce(address signer) public view returns (uint256) {
+        return nonces[signer];
+    }
 }
