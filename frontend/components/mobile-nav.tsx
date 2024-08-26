@@ -7,7 +7,7 @@ import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { networkConfig } from '@/config/network-config';
-import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
+import { standardERC721AbiMap } from '@/config/abi-map';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);

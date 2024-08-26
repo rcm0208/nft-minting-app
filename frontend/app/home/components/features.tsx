@@ -32,7 +32,7 @@ export default function Features() {
           </div>
           <h2 className="font-bold">
             Gasless NFT Minting of ERC721
-            {/* <Link href="" className="absolute inset-0"></Link> */}
+            <Link href="/gasless-mint" className="absolute inset-0"></Link>
           </h2>
           <p>ガス代なしでNFTをミントできます</p>
         </div>

@@ -1,15 +1,16 @@
 import Section from '@/app/home/components/section';
 import NetworkCardlist from './network-cardlist';
 import { networkConfig } from '@/config/network-config';
-import { standardERC721AbiMap } from '@/config/abi-map';
+import { gaslessERC721AbiMap } from '@/config/abi-map';
 
 export default function MintTop() {
   return (
-    <Section title="Mint" subTitle="NFT Minting of ERC721">
+    <Section title="GaslessMint" subTitle="NFT Minting of ERC721 without gas">
       <div className="grid lg:grid-cols-3 gap-4">
         {networkConfig
           .filter(
-            (network) => network.mintCollectionAddress && standardERC721AbiMap[network.networkId]
+            (network) =>
+              network.gaslessMintCollectionAddress && gaslessERC721AbiMap[network.networkId]
           )
           .map((network) => (
             <NetworkCardlist key={network.networkId} network={network} />

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
-import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
+import { standardERC721AbiMap } from '@/config/abi-map';
 
 export function useContractData(network: any) {
   const [maxSupply, setMaxSupply] = useState<number | null>(null); // 最大供給量

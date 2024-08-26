@@ -13,6 +13,7 @@ export interface NetworkConfig {
   rpcUrl: string;
   faucetUrl?: string;
   mintCollectionAddress: string;
+  gaslessMintCollectionAddress: string;
 }
 
 export const networkConfig: NetworkConfig[] = [
@@ -25,6 +26,7 @@ export const networkConfig: NetworkConfig[] = [
     rpcUrl: 'https://11155111.rpc.thirdweb.com',
     faucetUrl: 'https://www.alchemy.com/faucets/ethereum-sepolia',
     mintCollectionAddress: sepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
+    gaslessMintCollectionAddress: sepoliaContractAddresses['GaslessERC721AModule#GaslessERC721A'],
   },
   {
     networkId: '80002',
@@ -35,6 +37,7 @@ export const networkConfig: NetworkConfig[] = [
     rpcUrl: 'https://rpc-amoy.polygon.technology',
     faucetUrl: 'https://www.alchemy.com/faucets/polygon-amoy',
     mintCollectionAddress: amoyContractAddresses['StandardERC721AModule#StandardERC721A'],
+    gaslessMintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
   },
   {
     networkId: '97',
@@ -44,7 +47,8 @@ export const networkConfig: NetworkConfig[] = [
     explorerUrl: 'https://testnet.bscscan.com',
     rpcUrl: 'https://bsc-testnet-dataseed.bnbchain.org',
     faucetUrl: 'https://www.bnbchain.org/en/testnet-faucet',
-    mintCollectionAddress: '', // FIXME: BSC Testnetのコントラクトをデプロイ後に変更
+    mintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
+    gaslessMintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
   },
   {
     networkId: '11155420',
@@ -56,6 +60,7 @@ export const networkConfig: NetworkConfig[] = [
     faucetUrl: 'https://www.alchemy.com/faucets/optimism-sepolia',
     mintCollectionAddress:
       optimismSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
+    gaslessMintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
   },
   {
     networkId: '421614',
@@ -67,6 +72,7 @@ export const networkConfig: NetworkConfig[] = [
     faucetUrl: 'https://www.alchemy.com/faucets/arbitrum-sepolia',
     mintCollectionAddress:
       arbitrumSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
+    gaslessMintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
   },
   {
     networkId: '84532',
@@ -77,5 +83,6 @@ export const networkConfig: NetworkConfig[] = [
     rpcUrl: 'https://sepolia.base.org',
     faucetUrl: 'https://www.alchemy.com/faucets/base-sepolia',
     mintCollectionAddress: baseSepoliaContractAddresses['StandardERC721AModule#StandardERC721A'],
+    gaslessMintCollectionAddress: '', // FIXME: コントラクトをデプロイ後に変更
   },
 ];

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3ModalProvider, useSwitchNetwork, useWeb3Modal } from '@web3modal/ethers/react';
 import { networkConfig } from '@/config/network-config';
-import { standardERC721AbiMap } from '@/config/abi-map';
+import { gaslessERC721AbiMap } from '@/config/abi-map';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { showMintErrorToast, showMintSuccessToast } from '@/components/mint-result-toast';
@@ -41,8 +41,8 @@ export default function MintButton({
   const network = networkConfig.find(
     (net) => net.networkName.toLowerCase().replace(/ /g, '-') === networkName
   );
-  const contractAddress = network?.mintCollectionAddress; // コントラクトアドレスを取得
-  const contractModule = standardERC721AbiMap[networkId]; // コントラクトabiを取得
+  const contractAddress = network?.gaslessMintCollectionAddress; // コントラクトアドレスを取得
+  const contractModule = gaslessERC721AbiMap[networkId]; // コントラクトabiを取得
 
   const handleMint = useCallback(async () => {
     if (!walletProvider) {

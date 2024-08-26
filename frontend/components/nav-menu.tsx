@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { networkConfig } from '@/config/network-config';
-import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
+import { gaslessERC721AbiMap, standardERC721AbiMap } from '@/config/abi-map';
 
 export default function NavMenu() {
   return (
@@ -32,6 +32,25 @@ export default function NavMenu() {
                     key={network.networkId}
                     title={network.networkName}
                     href={`/mint/${network.networkUrl}`}
+                  />
+                ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Gasless Mint</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3 p-6 lg:w-[400px]">
+              {networkConfig
+                .filter(
+                  (network) =>
+                    network.gaslessMintCollectionAddress && gaslessERC721AbiMap[network.networkId]
+                )
+                .map((network) => (
+                  <ListItem
+                    key={network.networkId}
+                    title={network.networkName}
+                    href={`/gasless-mint/${network.networkUrl}`}
                   />
                 ))}
             </ul>
