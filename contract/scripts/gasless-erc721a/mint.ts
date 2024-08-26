@@ -7,14 +7,14 @@ dotenv.config();
 async function main() {
   const relayerPrivateKey = process.env.RELAYER_PRIVATE_KEY;
   const userPrivateKey = process.env.USER_PRIVATE_KEY;
-  const contractAddress = "0x7b421A463e8491D2f38F3e04d5C4c1CC813a1774";
+  const contractAddress = "0x2c26e89F5b6F0DB382A4AA2E74Ca6D81A933e60d";
 
   if (!userPrivateKey || !relayerPrivateKey || !contractAddress) {
     throw new Error("🔴 Missing environment variables");
   }
 
 
-  const quantity = 2; // ミントするNFTの数
+  const quantity = 1; // ミントするNFTの数
 
   // コントラクトのインスタンスを取得
   const GaslessERC721AFactory = await ethers.getContractFactory(

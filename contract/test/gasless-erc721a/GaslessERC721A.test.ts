@@ -299,7 +299,7 @@ describe("Gasless ERC721A", function () {
     }
 
     it("should return correct remaining mints for a wallet", async function () {
-      expect(await contract.remainingMints(addr1.address)).to.equal(
+      expect(await contract.remainingMintAmount(addr1.address)).to.equal(
         MAX_MINT_PER_ADDRESS
       );
 
@@ -316,14 +316,14 @@ describe("Gasless ERC721A", function () {
         .gaslessMint(addr1.address, quantity, nonce, expiry, signature);
       await tx.wait();
 
-      expect(await contract.remainingMints(addr1.address)).to.equal(
+      expect(await contract.remainingMintAmount(addr1.address)).to.equal(
         MAX_MINT_PER_ADDRESS - 1
       );
     });
 
     it("should consider temporary mint limit for remaining mints", async function () {
       await contract.connect(owner1).setTemporaryMintLimit(addr1.address, 5);
-      expect(await contract.remainingMints(addr1.address)).to.equal(5);
+      expect(await contract.remainingMintAmount(addr1.address)).to.equal(5);
     });
   });
 
