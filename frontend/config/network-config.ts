@@ -25,8 +25,7 @@ export const networkConfig: NetworkConfig[] = [
 		explorerUrl: "https://sepolia.etherscan.io",
 		rpcUrl: "https://11155111.rpc.thirdweb.com",
 		faucetUrl: "https://www.alchemy.com/faucets/ethereum-sepolia",
-		mintCollectionAddress:
-			sepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
+		mintCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
 		gaslessMintCollectionAddress:
 			sepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 	},

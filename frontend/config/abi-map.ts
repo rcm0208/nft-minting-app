@@ -6,6 +6,7 @@ import standardERC721A_11155420 from "../../contract/ignition/deployments/chain-
 
 import gaslessERC721A_11155111 from "../../contract/ignition/deployments/chain-11155111/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const standardERC721AbiMap: { [key: string]: any } = {
 	"11155111": "",
 	"80002": standardERC721A_80002,
@@ -15,6 +16,7 @@ export const standardERC721AbiMap: { [key: string]: any } = {
 	"84532": standardERC721A_84532,
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const gaslessERC721AbiMap: { [key: string]: any } = {
 	"11155111": gaslessERC721A_11155111,
 	"80002": "", //FIXME: コントラクトをデプロイ後に変更

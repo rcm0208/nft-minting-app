@@ -1,6 +1,7 @@
 import MintQuantitySelector from "@/components/mint-quantity-selector";
 import SupplyDisplay from "@/components/supply-display";
 import { Button } from "@/components/ui/button";
+import type { NetworkConfig } from "@/config/network-config";
 import { faGasPump } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -10,7 +11,7 @@ import MintButton from "./mint-button";
 import RemainingMintAmountDisplay from "./remaining-mint-amount-display";
 
 interface MintFormProps {
-	network: any;
+	network: NetworkConfig;
 	quantity: number;
 	setQuantity: (quantity: number | ((prevQuantity: number) => number)) => void;
 	isMinting: boolean;

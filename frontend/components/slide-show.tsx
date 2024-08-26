@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Slider from "react-slick";
 
-const images = ["/image/pet-nft-1.jpeg", "/image/pet-nft-2.jpeg"];
+const images = [
+	{ id: "pet-nft-1", src: "/image/pet-nft-1.jpeg" },
+	{ id: "pet-nft-2", src: "/image/pet-nft-2.jpeg" },
+];
 
 const settings = {
 	arrows: false,
@@ -20,11 +23,11 @@ export default function Slideshow() {
 	return (
 		<div className="w-full h-auto">
 			<Slider {...settings}>
-				{images.map((src, index) => (
-					<div key={index}>
+				{images.map((image) => (
+					<div key={image.id}>
 						<Image
-							src={src}
-							alt={`NFT Image ${index + 1}`}
+							src={image.src}
+							alt={`NFT Image ${image.id}`}
 							width={400}
 							height={400}
 							className="rounded-lg shadow-lg"

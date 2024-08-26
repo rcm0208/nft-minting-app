@@ -1,12 +1,13 @@
 import { gaslessERC721AbiMap } from "@/config/abi-map";
+import type { NetworkConfig } from "@/config/network-config";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 
-export function useContractData(network: any) {
+export function useContractData(network: NetworkConfig | undefined) {
 	const [maxSupply, setMaxSupply] = useState<number | null>(null);
 	const [totalSupply, setTotalSupply] = useState<number | null>(null);
-	const [remainingMintAmount, setremainingMintAmount] = useState<number | null>(
+	const [remainingMintAmount, setRemainingMintAmount] = useState<number | null>(
 		null,
 	);
 	const [error, setError] = useState<string | null>(null);
@@ -43,9 +44,9 @@ export function useContractData(network: any) {
 			if (address) {
 				const remainingMintAmountForUser =
 					await contract.remainingMintAmount(address);
-				setremainingMintAmount(Number(remainingMintAmountForUser));
+				setRemainingMintAmount(Number(remainingMintAmountForUser));
 			} else {
-				setremainingMintAmount(null);
+				setRemainingMintAmount(null);
 			}
 
 			setError(null);
@@ -82,7 +83,7 @@ export function useContractData(network: any) {
 			if (address) {
 				const remainingMintAmountForUser =
 					await contract.remainingMintAmount(address);
-				setremainingMintAmount(Number(remainingMintAmountForUser));
+				setRemainingMintAmount(Number(remainingMintAmountForUser));
 			}
 		} catch (error) {
 			console.error("Failed to update supply data:", error);

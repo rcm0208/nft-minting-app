@@ -1,8 +1,9 @@
 import { standardERC721AbiMap } from "@/config/abi-map";
+import type { NetworkConfig } from "@/config/network-config";
 import { ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 
-export function useContractData(network: any) {
+export function useContractData(network: NetworkConfig | undefined) {
 	const [maxSupply, setMaxSupply] = useState<number | null>(null); // 最大供給量
 	const [totalSupply, setTotalSupply] = useState<number | null>(null); // 現在の供給量
 	const [maxMintAmount, setMaxMintAmount] = useState<number | null>(null); // 1回の最大ミント数
