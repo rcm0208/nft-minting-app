@@ -1,9 +1,9 @@
-import Home from './home/page';
+import Home from "./home/page";
 
 export default function TopPage() {
-  return (
-    <>
-      <Home />
-    </>
-  );
+	return (
+		<>
+			<Home />
+		</>
+	);
 }
