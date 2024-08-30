@@ -35,11 +35,12 @@ export const networkConfig: NetworkConfig[] = [
 		networkUrl: "amoy",
 		currency: "MATIC",
 		explorerUrl: "https://amoy.polygonscan.com",
-		rpcUrl: "https://rpc-amoy.polygon.technology",
+		rpcUrl: "https://80002.rpc.thirdweb.com",
 		faucetUrl: "https://www.alchemy.com/faucets/polygon-amoy",
 		mintCollectionAddress:
 			amoyContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
+		gaslessMintCollectionAddress:
+			amoyContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 	},
 	{
 		networkId: "97",
@@ -62,7 +63,8 @@ export const networkConfig: NetworkConfig[] = [
 		faucetUrl: "https://www.alchemy.com/faucets/optimism-sepolia",
 		mintCollectionAddress:
 			optimismSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
+		gaslessMintCollectionAddress:
+			optimismSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 	},
 	{
 		networkId: "421614",
@@ -74,7 +76,8 @@ export const networkConfig: NetworkConfig[] = [
 		faucetUrl: "https://www.alchemy.com/faucets/arbitrum-sepolia",
 		mintCollectionAddress:
 			arbitrumSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
+		gaslessMintCollectionAddress:
+			arbitrumSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 	},
 	{
 		networkId: "84532",
@@ -86,6 +89,7 @@ export const networkConfig: NetworkConfig[] = [
 		faucetUrl: "https://www.alchemy.com/faucets/base-sepolia",
 		mintCollectionAddress:
 			baseSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
+		gaslessMintCollectionAddress:
+			baseSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 	},
 ];

@@ -96,7 +96,6 @@ export default function MintButton({
         throw new Error('Network configuration or contract address not found');
       }
 
-      // Get minting parameters from backend
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
       const response = await fetch(`${apiUrl}/get-mint-params`, {
         method: 'POST',
@@ -117,10 +116,8 @@ export default function MintButton({
 
       const { nonce, expiry, messageToSign } = await response.json();
 
-      // User signs the message
       const signature = await signer.signMessage(ethers.getBytes(messageToSign));
 
-      // Send the signature back to the backend for minting
       const mintResponse = await fetch(`${apiUrl}/mint`, {
         method: 'POST',
         headers: {

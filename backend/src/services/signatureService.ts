@@ -1,6 +1,14 @@
 import { ethers } from "ethers";
+import gaslessERC721A_80002 from "../../../contract/ignition/deployments/chain-80002/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import amoyContractAddresses from "../../../contract/ignition/deployments/chain-80002/deployed_addresses.json";
+import gaslessERC721A_84532 from "../../../contract/ignition/deployments/chain-84532/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import baseSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-84532/deployed_addresses.json";
+import gaslessERC721A_421614 from "../../../contract/ignition/deployments/chain-421614/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import arbitrumSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-421614/deployed_addresses.json";
 import gaslessERC721A_11155111 from "../../../contract/ignition/deployments/chain-11155111/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 import sepoliaContractAddresses from "../../../contract/ignition/deployments/chain-11155111/deployed_addresses.json";
+import gaslessERC721A_11155420 from "../../../contract/ignition/deployments/chain-11155420/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import optimismSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-11155420/deployed_addresses.json";
 import { getRelayerWallet } from "../utils/ethers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -10,7 +18,29 @@ const gaslessERC721AbiMap: { [key: string]: any } = {
 		address: sepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 		rpcUrl: "https://11155111.rpc.thirdweb.com",
 	},
-	// 他のネットワークも同様に設定
+	"80002": {
+		abi: gaslessERC721A_80002.abi,
+		address: amoyContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://80002.rpc.thirdweb.com",
+	},
+	"11155420": {
+		abi: gaslessERC721A_11155420.abi,
+		address:
+			optimismSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://sepolia.optimism.io",
+	},
+	"421614": {
+		abi: gaslessERC721A_421614.abi,
+		address:
+			arbitrumSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://sepolia-rollup.arbitrum.io/rpc",
+	},
+	"84532": {
+		abi: gaslessERC721A_84532.abi,
+		address:
+			baseSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://sepolia.base.org",
+	},
 };
 
 function isSupportedNetwork(networkId: string): boolean {
