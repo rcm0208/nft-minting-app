@@ -66,7 +66,14 @@ contract GaslessERC721A is ERC721A, Ownable, ReentrancyGuard {
             "Exceeds max mint per address"
         );
         require(
-            verifySignature(signer, quantity, nonce, expiry, signature),
+            verifySignature(
+                msg.sender,
+                signer,
+                quantity,
+                nonce,
+                expiry,
+                signature
+            ),
             "Invalid signature"
         );
 
@@ -78,6 +85,7 @@ contract GaslessERC721A is ERC721A, Ownable, ReentrancyGuard {
     }
 
     function verifySignature(
+        address relayer,
         address signer,
         uint256 quantity,
         uint256 nonce,
@@ -85,12 +93,20 @@ contract GaslessERC721A is ERC721A, Ownable, ReentrancyGuard {
         bytes memory signature
     ) public view returns (bool) {
         bytes32 messageHash = keccak256(
-            abi.encodePacked(signer, quantity, nonce, expiry, address(this))
+            abi.encodePacked(
+                relayer,
+                signer,
+                quantity,
+                nonce,
+                expiry,
+                address(this)
+            )
         );
         bytes32 ethSignedMessageHash = MessageHashUtils.toEthSignedMessageHash(
             messageHash
         );
-        return ethSignedMessageHash.recover(signature) == signer;
+        address recoveredSigner = ethSignedMessageHash.recover(signature);
+        return recoveredSigner == signer;
     }
 
     function setRelayerStatus(address relayer, bool status) external onlyOwner {
