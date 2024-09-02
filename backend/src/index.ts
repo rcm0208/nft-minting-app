@@ -8,10 +8,22 @@ import {
 
 const app = new Hono();
 
+const allowedOrigins = [
+	"https://rcm0208.xyz",
+	"https://rcm0208.xyz/nft-minting-app",
+	"http://localhost:3000",
+	"http://localhost:8000",
+];
+
 app.use(
 	"*",
 	cors({
-		origin: "*",
+		origin: (origin) => {
+			if (allowedOrigins.includes(origin) || !origin) {
+				return origin;
+			}
+			return null;
+		},
 		allowMethods: ["POST", "GET", "OPTIONS"],
 		allowHeaders: ["Content-Type", "Authorization"],
 		exposeHeaders: ["Content-Length"],
@@ -23,9 +35,11 @@ app.use(
 app.post("/get-mint-params", getMintParamsController);
 app.post("/mint", mintController);
 
+const port = process.env.PORT || 8080;
+
 serve({
 	fetch: app.fetch,
-	port: 3000,
+	port: Number(port),
 });
 
-console.log("Server is running on http://0.0.0.0:3000");
+console.log(`Server is running on http://0.0.0.0:${port}`);
