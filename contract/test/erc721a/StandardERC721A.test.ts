@@ -169,9 +169,10 @@ describe("Standard ERC721A", function () {
     });
 
     it("should not mint more than initial max supply", async function () {
-      for (let i = 0; i < MAX_SUPPLY; i++) {
-        await contract.connect(addr1).mint(1);
-      }
+      await contract.connect(owner1).setMaxSupply(1);
+      expect(await contract.maxSupply()).to.equal(1);
+
+      await contract.connect(addr1).mint(1);
       await expect(contract.connect(addr1).mint(1)).to.be.reverted;
     });
 

@@ -1,25 +1,28 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { gaslessERC721AbiMap, standardERC721AbiMap } from '@/config/abi-map';
+import { networkConfig } from '@/config/network-config';
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { networkConfig } from '@/config/network-config';
-import { standardERC721AbiMap } from '@/config/standard-erc721-abi-map';
+import { useState } from 'react';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubSheetOpen, setIsSubSheetOpen] = useState(false);
+  const [activeSubSheet, setActiveSubSheet] = useState<'mint' | 'gaslessMint' | null>(null);
 
   const handleLinkClick = () => {
     setIsOpen(false);
     setIsSubSheetOpen(false);
+    setActiveSubSheet(null);
   };
 
-  const handleMintClick = () => {
+  const handleMintClick = (type: 'mint' | 'gaslessMint') => {
     setIsSubSheetOpen(true);
+    setActiveSubSheet(type);
   };
 
   return (
@@ -40,28 +43,45 @@ export function MobileNav() {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col">
-          <Button variant="ghost" className="justify-start" onClick={handleMintClick}>
+          <Button variant="ghost" className="justify-start" onClick={() => handleMintClick('mint')}>
             Mint
+          </Button>
+          <Button
+            variant="ghost"
+            className="justify-start"
+            onClick={() => handleMintClick('gaslessMint')}
+          >
+            Gasless Mint
           </Button>
         </div>
         <Sheet open={isSubSheetOpen} onOpenChange={setIsSubSheetOpen}>
           <SheetContent side="left">
             <SheetHeader className="pb-4 text-left">
               <SheetTitle>
-                <Link href="/mint" className="inline-block" onClick={handleLinkClick}>
-                  Mint Networks
+                <Link
+                  href={activeSubSheet === 'mint' ? '/mint' : '/gasless-mint'}
+                  className="inline-block"
+                  onClick={handleLinkClick}
+                >
+                  {activeSubSheet === 'mint' ? 'Mint Networks' : 'Gasless Mint Networks'}
                 </Link>
               </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col">
               {networkConfig
-                .filter(
-                  (network) =>
-                    network.mintCollectionAddress && standardERC721AbiMap[network.networkId]
+                .filter((network) =>
+                  activeSubSheet === 'mint'
+                    ? network.mintCollectionAddress && standardERC721AbiMap[network.networkId]
+                    : network.gaslessMintCollectionAddress && gaslessERC721AbiMap[network.networkId]
                 )
                 .map((network) => (
                   <Button variant="ghost" className="justify-start" key={network.networkId} asChild>
-                    <Link href={`/mint/${network.networkUrl}`} onClick={handleLinkClick}>
+                    <Link
+                      href={`/${activeSubSheet === 'mint' ? 'mint' : 'gasless-mint'}/${
+                        network.networkUrl
+                      }`}
+                      onClick={handleLinkClick}
+                    >
                       {network.networkName}
                     </Link>
                   </Button>

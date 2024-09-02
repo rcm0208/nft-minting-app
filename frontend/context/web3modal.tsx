@@ -4,9 +4,9 @@
 
 import { networkConfig } from '@/config/network-config';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-export const projectId = process.env['NEXT_PUBLIC_PROJECT_ID'];
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
 if (!projectId) {
   throw new Error('Project ID is not defined');
@@ -14,7 +14,7 @@ if (!projectId) {
 
 // 2. Set chains
 const chains = networkConfig.map((value) => ({
-  chainId: parseInt(value.networkId, 10),
+  chainId: Number.parseInt(value.networkId, 10),
   name: value.networkName,
   currency: value.currency,
   explorerUrl: value.explorerUrl || '',
@@ -23,10 +23,12 @@ const chains = networkConfig.map((value) => ({
 
 // 3. Create a metadata object
 const metadata = {
-  name: 'Personal Project',
-  description: 'Web3Modal Example',
-  url: 'https://web3modal.com', // origin must match your domain & subdomain
-  icons: ['https://avatars.githubusercontent.com/u/37784886'],
+  name: 'NFT Minting App',
+  description: 'NFT Minting App',
+  url: 'https://rcm0208.xyz/nft-minting-app', // origin must match your domain & subdomain
+  icons: [
+    'https://raw.githubusercontent.com/rcm0208/nft-minting-app/main/frontend/public/image/logo.svg',
+  ],
 };
 
 // 4. Create Ethers config

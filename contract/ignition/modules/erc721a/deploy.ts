@@ -1,8 +1,8 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
 export const ERC721A_PARAMS = {
-  CONTRACT_NAME: "Test ERC721A", // コントラクトの名前
-  CONTRACT_SYMBOL: "TERC721A", // コントラクトのシンボル
+  CONTRACT_NAME: "Standard ERC721A", // コントラクトの名前
+  CONTRACT_SYMBOL: "SERC721A", // コントラクトのシンボル
   INITIAL_BASE_URI: "", // 初期基本URI
   MAX_SUPPLY: 30, // 発行上限
   MAX_MINT_AMOUNT: 5, // 1回の発行上限
