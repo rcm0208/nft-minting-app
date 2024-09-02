@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  output: 'standalone',
+  // basePath: '/nft-minting-app',
+};
 
-export default nextConfig;
+module.exports = nextConfig;
