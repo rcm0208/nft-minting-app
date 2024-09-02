@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	output: "standalone",
-	// basePath: '/nft-minting-app',
+	webpack: (config, { isServer }) => {
+		config.resolve.alias = {
+			...config.resolve.alias,
+			"../../contract": "/tmp/build/contract",
+		};
+		return config;
+	},
 };
 
 module.exports = nextConfig;
