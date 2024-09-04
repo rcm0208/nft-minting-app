@@ -4,4 +4,4 @@ const nextConfig = {
 	// basePath: '/nft-minting-app',
 };
 
-module.exports = nextConfig;
+export default nextConfig;
