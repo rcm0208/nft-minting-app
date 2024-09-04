@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	const networkName = network ? network.networkName : "Unknown network";
 
 	return {
-		title: `Mint on ${networkName}`,
-		description: `ガス代を支払って${networkName}のERC721 NFTをガス代なしでミントできます`,
+		title: `Gasless Mint on ${networkName}`,
+		description: `ガス代なしで${networkName}のERC721 NFTをミントできます`,
 	};
 }
 
