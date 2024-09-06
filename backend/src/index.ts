@@ -10,7 +10,7 @@ const app = new Hono();
 
 const allowedOrigins = [
 	"https://rcm0208.xyz",
-	"https://rcm0208.xyz/nft-minting-app",
+	"https://nft-minting-app.rcm0208.xyz",
 	"http://localhost:3000",
 	"http://localhost:8000",
 ];
