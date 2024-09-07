@@ -6,3 +6,4 @@ cache
 scripts
 test
 .env
+Dockerfile.dev
