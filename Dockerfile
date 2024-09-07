@@ -1,3 +1,5 @@
+# backend本番デプロイ用
+
 FROM node:20
 
 RUN curl -fsSL https://bun.sh/install | bash
@@ -7,12 +9,13 @@ ENV PATH="$BUN_INSTALL/bin:$PATH"
 
 WORKDIR /app
 
-COPY backend/package.json backend/bun.lockb ./
-COPY contract ../contract
+COPY ./backend /app/backend
+
+COPY ./contract/ignition/deployments /app/contract/ignition/deployments
+
+WORKDIR /app/backend
 
 RUN bun install
-
-COPY backend .
 
 EXPOSE 8080
 
