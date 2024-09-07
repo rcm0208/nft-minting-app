@@ -1,8 +1,8 @@
 node_modules
-npm-debug.log
-.dockerignore
-Dockerfile
+contract/*
+!contract/ignition/deployments/*
+artifacts
+cache
+scripts
+test
 .env
-.env.local
-.git
-.gitignore
