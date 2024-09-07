@@ -17,8 +17,8 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          mkdir -p deploy/backend
-          cp -r backend/* deploy/backend/
+          mkdir -p deploy
+          cp -r backend/* deploy/
           cp -r contract deploy/
           cd deploy
           zip -r ../deploy.zip .
