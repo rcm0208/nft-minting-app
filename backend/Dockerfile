@@ -1,19 +1,21 @@
 FROM node:20
 
-WORKDIR /app/backend
+RUN curl -fsSL https://bun.sh/install | bash
 
-COPY backend/ /app/backend/
+ENV BUN_INSTALL="/root/.bun"
+ENV PATH="$BUN_INSTALL/bin:$PATH"
 
-COPY contract/ignition/deployments /app/contract/ignition/deployments
+WORKDIR /app
 
-WORKDIR /app/backend
+COPY backend/package.json backend/bun.lockb ./
+COPY contract ../contract
 
-RUN npm install --legacy-peer-deps
+RUN bun install
 
-RUN npm run build
+COPY backend .
 
 EXPOSE 8080
 
 ENV NODE_ENV=production
 
-CMD ["npm", "start"]
+CMD ["bun", "run", "start"]
