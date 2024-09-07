@@ -1,6 +1,6 @@
 branch-defaults:
   main:
-    environment: prd-nft-minting-app-backend-env
+    environment: nft-minting-app-backend-env
 global:
   application_name: nft-minting-app-backend
   default_platform: Docker
