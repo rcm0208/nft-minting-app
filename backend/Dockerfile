@@ -11,10 +11,10 @@ COPY . .
 
 RUN bun install
 
+RUN bun run build
+
 EXPOSE 8080
 
 ENV NODE_ENV=production
 
-RUN bun run build
-
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", "dist/index.js"]
