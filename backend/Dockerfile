@@ -1,10 +1,14 @@
 FROM node:20
 
-WORKDIR /app
+WORKDIR /app/backend
 
-COPY . .
+COPY backend/ /app/backend/
 
-RUN npm install
+COPY contract/ignition/deployments /app/contract/ignition/deployments
+
+WORKDIR /app/backend
+
+RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
