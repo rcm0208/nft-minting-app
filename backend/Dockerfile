@@ -8,7 +8,6 @@ ENV PATH="$BUN_INSTALL/bin:$PATH"
 WORKDIR /app
 
 COPY . .
-COPY ../contract ../contract
 
 RUN bun install
 
