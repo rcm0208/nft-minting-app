@@ -5,16 +5,17 @@ RUN curl -fsSL https://bun.sh/install | bash
 ENV BUN_INSTALL="/root/.bun"
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
-WORKDIR /app/backend
+WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY backend/package.json backend/bun.lockb ./
+COPY contract ../contract
 
 RUN bun install
 
-COPY . .
+COPY backend .
 
-EXPOSE 3000
+EXPOSE 8080
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
-CMD ["bun", "run", "dev"]
+CMD ["bun", "run", "start"]
