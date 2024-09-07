@@ -7,12 +7,10 @@ ENV PATH="$BUN_INSTALL/bin:$PATH"
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
-COPY contract ../contract
+COPY . .
+COPY ../contract ../contract
 
 RUN bun install
-
-COPY . .
 
 EXPOSE 8080
 
