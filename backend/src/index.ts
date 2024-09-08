@@ -32,6 +32,10 @@ app.use(
 	}),
 );
 
+app.get("/", (c) => {
+	return c.text("OK");
+});
+
 app.post("/get-mint-params", getMintParamsController);
 app.post("/mint", mintController);
 
