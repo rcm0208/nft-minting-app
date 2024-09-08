@@ -29,7 +29,7 @@ export default function NetworkCardlist({
 			</div>
 			<h2 className="font-bold">
 				{network.networkName}
-				<Link href={`/mint/${networkUrl}`} className="absolute inset-0"></Link>
+				<Link href={`/mint/${networkUrl}`} className="absolute inset-0" />
 			</h2>
 			<p>{network.networkName}のNFTをミントできます</p>
 		</div>
