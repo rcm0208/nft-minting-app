@@ -14,6 +14,9 @@ import gaslessERC721A_11155420 from "../../contract/ignition/deployments/chain-1
 // import gaslessERC721A_168587773 from "../../contract/ignition/deployments/chain-168587773/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 // import gaslessERC721A_59141 from "../../contract/ignition/deployments/chain-59141/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 
+// import soulboundERC721A_80002 from "../../contract/ignition/deployments/chain-80002/artifacts/SoulboundERC721AModule#SoulboundERC721A.json";
+import soulboundERC721A_11155111 from "../../contract/ignition/deployments/chain-11155111/artifacts/SoulboundERC721AModule#SoulboundERC721A.json";
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const standardERC721AbiMap: { [key: string]: any } = {
 	"11155111": standardERC721A_11155111,
@@ -34,6 +37,18 @@ export const gaslessERC721AbiMap: { [key: string]: any } = {
 	"11155420": gaslessERC721A_11155420,
 	"421614": gaslessERC721A_421614,
 	"84532": gaslessERC721A_84532,
+	"168587773": "", // FIXME: コントラクトをデプロイ後に変更
+	"59141": "", // FIXME: コントラクトをデプロイ後に変更
+};
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export const soulboundERC721AbiMap: { [key: string]: any } = {
+	"11155111": soulboundERC721A_11155111,
+	"80002": "", // FIXME: コントラクトをデプロイ後に変更
+	"97": "", // FIXME: コントラクトをデプロイ後に変更
+	"11155420": "", // FIXME: コントラクトをデプロイ後に変更
+	"421614": "", // FIXME: コントラクトをデプロイ後に変更
+	"84532": "", // FIXME: コントラクトをデプロイ後に変更
 	"168587773": "", // FIXME: コントラクトをデプロイ後に変更
 	"59141": "", // FIXME: コントラクトをデプロイ後に変更
 };
