@@ -11,6 +11,7 @@ contract SoulboundERC721A is ERC721A, Ownable, ReentrancyGuard {
     uint256 public maxSupply;
     uint256 public maxMintPerAddress;
     bool public paused;
+    bool public burnEnabled;
 
     mapping(address => uint256) public mintedAmount;
     mapping(address => uint256) public temporaryMintLimit;
@@ -22,6 +23,7 @@ contract SoulboundERC721A is ERC721A, Ownable, ReentrancyGuard {
     event MaxMintPerAddressUpdated(uint256 newMaxMintPerAddress);
     event PausedStatusUpdated(bool isPaused);
     event TemporaryMintLimitSet(address indexed wallet, uint256 limit);
+    event BurnEnabledUpdated(bool isBurnEnabled);
 
     constructor(
         string memory _name,
@@ -33,8 +35,10 @@ contract SoulboundERC721A is ERC721A, Ownable, ReentrancyGuard {
         baseURI = _initialBaseURI;
         maxSupply = _maxSupply;
         maxMintPerAddress = _maxMintPerAddress;
+        burnEnabled = true;
 
         emit BaseURIUpdated(_initialBaseURI);
+        emit BurnEnabledUpdated(true);
     }
 
     function mint(uint256 quantity) external nonReentrant {
@@ -54,6 +58,7 @@ contract SoulboundERC721A is ERC721A, Ownable, ReentrancyGuard {
     }
 
     function burn(uint256 tokenId) external {
+        require(burnEnabled, "Burn functionality is disabled");
         require(
             ownerOf(tokenId) == msg.sender,
             "Caller is not the token owner"
@@ -104,6 +109,11 @@ contract SoulboundERC721A is ERC721A, Ownable, ReentrancyGuard {
     ) external onlyOwner {
         maxMintPerAddress = _newMaxMintPerAddress;
         emit MaxMintPerAddressUpdated(_newMaxMintPerAddress);
+    }
+
+    function setBurnEnabled(bool _burnEnabled) external onlyOwner {
+        burnEnabled = _burnEnabled;
+        emit BurnEnabledUpdated(_burnEnabled);
     }
 
     function remainingTotalSupply() public view returns (uint256) {

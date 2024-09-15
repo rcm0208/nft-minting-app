@@ -273,6 +273,31 @@ describe("Soulbound ERC721A", () => {
 		it("should not allow burning of non-existent token", async () => {
 			await expect(contract.connect(addr1).burn(1)).to.be.reverted;
 		});
+
+		it("should not allow burning when burnEnabled is false", async () => {
+			await contract.connect(addr1).mint(1);
+			await contract.connect(owner1).setBurnEnabled(false);
+			await expect(contract.connect(addr1).burn(1)).to.be.reverted;
+		});
+	});
+
+	describe("Check Burn Enable/Disable", () => {
+		it("should be enabled by default", async () => {
+			expect(await contract.burnEnabled()).to.equal(true);
+		});
+
+		it("should allow the contract owner to toggle burn status", async () => {
+			await contract.connect(owner1).setBurnEnabled(false);
+			expect(await contract.burnEnabled()).to.equal(false);
+
+			await contract.connect(owner1).setBurnEnabled(true);
+			expect(await contract.burnEnabled()).to.equal(true);
+		});
+
+		it("should not allow non-owner to toggle burn status", async () => {
+			await expect(contract.connect(addr1).setBurnEnabled(false)).to.be
+				.reverted;
+		});
 	});
 
 	describe("Check SBT Characteristics", () => {
