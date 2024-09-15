@@ -4,7 +4,7 @@ import { Button } from '../../../components/ui/button';
 
 export default function Hero() {
   return (
-    <div className="py-5 lg:py-40 flex items-center justify-between">
+    <div className="py-5 lg:py-28 flex items-center justify-between">
       <div className="container mx-auto flex flex-col lg:flex-row items-center">
         <div className="lg:w-1/2 w-full lg:pr-8 order-2 lg:order-1 mt-8 lg:mt-0 text-center lg:text-left flex flex-col items-center lg:items-start">
           <h1 className="font-bold text-4xl mb-5 lg:text-6xl">Various NFT Collection</h1>

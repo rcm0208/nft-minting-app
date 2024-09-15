@@ -1,13 +1,15 @@
-import Contact from "./components/contact";
-import Features from "./components/features";
-import Hero from "./components/hero";
+import Contact from './components/contact';
+import Features from './components/features';
+import Hero from './components/hero';
+import SupportNetworks from './components/support-networks';
 
 export default function Home() {
-	return (
-		<>
-			<Hero />
-			<Features />
-			{/* <Contact /> */}
-		</>
-	);
+  return (
+    <>
+      <Hero />
+      <SupportNetworks />
+      <Features />
+      {/* <Contact /> */}
+    </>
+  );
 }
