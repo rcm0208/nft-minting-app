@@ -1,9 +1,8 @@
 'use client';
-import { motion, useAnimation } from 'framer-motion';
+import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import Section from './section';
 
 interface FeatureCardProps {
   id: string;
@@ -30,8 +29,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           controls.start({ opacity: 1, y: 0 });
-        } else {
-          controls.start({ opacity: 0, y: 50 });
         }
       },
       {
@@ -76,6 +73,45 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   );
 };
 
+const AnimatedText: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const controls = useAnimation();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          controls.start({ opacity: 1, y: 0 });
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [controls]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={controls}
+      transition={{ duration: 0.5 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 export default function Features() {
   const features: Omit<FeatureCardProps, 'index'>[] = [
     {
@@ -94,8 +130,10 @@ export default function Features() {
     },
     {
       id: 'sbt-minting',
+      imageSrc: '/image/sbt-mint-banner.png',
       title: 'SBT Minting of ERC721',
-      description: 'SBTのNFTをミントできます',
+      description: 'SBTをミントできます',
+      link: '/sbt-mint',
     },
     {
       id: 'whitelisted-minting',
@@ -105,12 +143,22 @@ export default function Features() {
   ];
 
   return (
-    <Section title="Features" subTitle="Various NFT Minting">
-      <div className="grid lg:grid-cols-3 gap-4">
-        {features.map((feature, index) => (
-          <FeatureCard key={feature.id} {...feature} index={index} />
-        ))}
+    <section id="features" className="py-20 container">
+      <div className="text-center">
+        <AnimatedText>
+          <h2 className="font-bold text-4xl mb-4">Features</h2>
+        </AnimatedText>
+        <AnimatedText>
+          <p className="text-muted-foreground mb-8">Various NFT Minting</p>
+        </AnimatedText>
+        <AnimatePresence>
+          <div className="grid lg:grid-cols-3 gap-4">
+            {features.map((feature, index) => (
+              <FeatureCard key={feature.id} {...feature} index={index} />
+            ))}
+          </div>
+        </AnimatePresence>
       </div>
-    </Section>
+    </section>
   );
 }

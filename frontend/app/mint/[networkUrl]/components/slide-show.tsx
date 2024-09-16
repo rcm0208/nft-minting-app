@@ -4,8 +4,11 @@ import Image from 'next/image';
 import Slider from 'react-slick';
 
 const images = [
-  { id: 'pet-nft-1', src: '/pet-nft/pet-nft-1.jpeg' },
-  { id: 'pet-nft-2', src: '/pet-nft/pet-nft-2.jpeg' },
+  { id: '1', src: '/pet-nft/pet-nft-5.jpeg' },
+  { id: '2', src: '/pet-nft/pet-nft-4.jpeg' },
+  { id: '3', src: '/pet-nft/pet-nft-3.jpeg' },
+  { id: '4', src: '/pet-nft/pet-nft-2.jpeg' },
+  { id: '5', src: '/pet-nft/pet-nft-1.jpeg' },
 ];
 
 const settings = {
