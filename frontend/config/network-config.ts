@@ -47,8 +47,8 @@ export const networkConfig: NetworkConfig[] = [
 			amoyContractAddresses["StandardERC721AModule#StandardERC721A"],
 		gaslessMintCollectionAddress:
 			amoyContractAddresses["GaslessERC721AModule#GaslessERC721A"],
-		soulboundCollectionAddress: "", // FIXME: コントラクトをデプロイ後に変更
-		// amoyContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		soulboundCollectionAddress:
+			amoyContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
 	},
 	{
 		networkId: "97",
@@ -74,8 +74,10 @@ export const networkConfig: NetworkConfig[] = [
 			optimismSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
 		gaslessMintCollectionAddress:
 			optimismSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
-		soulboundCollectionAddress: "",
-		// optimismSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		soulboundCollectionAddress:
+			optimismSepoliaContractAddresses[
+				"SoulboundERC721AModule#SoulboundERC721A"
+			],
 	},
 	{
 		networkId: "421614",
@@ -89,8 +91,10 @@ export const networkConfig: NetworkConfig[] = [
 			arbitrumSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
 		gaslessMintCollectionAddress:
 			arbitrumSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
-		soulboundCollectionAddress: "",
-		// arbitrumSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		soulboundCollectionAddress:
+			arbitrumSepoliaContractAddresses[
+				"SoulboundERC721AModule#SoulboundERC721A"
+			],
 	},
 	{
 		networkId: "84532",
@@ -104,8 +108,8 @@ export const networkConfig: NetworkConfig[] = [
 			baseSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
 		gaslessMintCollectionAddress:
 			baseSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
-		soulboundCollectionAddress: "",
-		// baseSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		soulboundCollectionAddress:
+			baseSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
 	},
 	{
 		networkId: "168587773",
@@ -117,10 +121,10 @@ export const networkConfig: NetworkConfig[] = [
 		faucetUrl: "https://faucet.quicknode.com/blast/sepolia",
 		mintCollectionAddress:
 			blastSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "",
-		// blastSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"], //FIXME: コントラクトをデプロイ後に変更
-		soulboundCollectionAddress: "",
-		// blastSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		gaslessMintCollectionAddress:
+			blastSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		soulboundCollectionAddress:
+			blastSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
 	},
 	{
 		networkId: "59141",
@@ -132,9 +136,9 @@ export const networkConfig: NetworkConfig[] = [
 		faucetUrl: "https://www.covalenthq.com/faucet",
 		mintCollectionAddress:
 			lineaSepoliaContractAddresses["StandardERC721AModule#StandardERC721A"],
-		gaslessMintCollectionAddress: "",
-		// lineaSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"], //FIXME: コントラクトをデプロイ後に変更
-		soulboundCollectionAddress: "",
-		// lineaSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
+		gaslessMintCollectionAddress:
+			lineaSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		soulboundCollectionAddress:
+			lineaSepoliaContractAddresses["SoulboundERC721AModule#SoulboundERC721A"],
 	},
 ];
