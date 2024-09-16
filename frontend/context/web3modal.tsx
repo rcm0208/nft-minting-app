@@ -25,7 +25,7 @@ const chains = networkConfig.map((value) => ({
 const metadata = {
   name: 'NFT Minting App',
   description: 'NFT Minting App',
-  url: 'https://rcm0208.xyz/nft-minting-app', // origin must match your domain & subdomain
+  url: 'https://nft-minting-app.rcm0208.xyz', // origin must match your domain & subdomain
   icons: [
     'https://raw.githubusercontent.com/rcm0208/nft-minting-app/main/frontend/public/image/logo.svg',
   ],

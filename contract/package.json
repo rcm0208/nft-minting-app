@@ -7,14 +7,17 @@
   "scripts": {
     "clean": "hardhat clean",
     "clear": "yarn run clean && rimraf node_module yarn.lock",
-    "compile": "hardhat compile",
+    "compile": "hardhat clean && hardhat compile",
     "balance": "hardhat balance",
     "test": "hardhat test --network hardhat",
     "test-standard-erc721a": "hardhat clean && hardhat compile && hardhat test test/erc721a/StandardERC721A.test.ts",
     "test-gasless-erc721a": "hardhat clean && hardhat compile && hardhat test test/gasless-erc721a/GaslessERC721A.test.ts",
+    "test-soulbound-erc721a": "hardhat clean && hardhat compile && hardhat test test/soulbound-erc721a/SoulboundERC721A.test.ts",
     "deploy-standard-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/erc721a/deploy.ts",
     "deploy-gasless-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/gasless-erc721a/deploy.ts",
-    "mint-gasless-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/gasless-erc721a/mint.ts"
+    "mint-gasless-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/gasless-erc721a/mint.ts",
+    "deploy-soulbound-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/soulbound-erc721a/deploy.ts",
+    "burn-soulbound-erc721a": "hardhat clean && hardhat compile && hardhat run scripts/soulbound-erc721a/burn.ts"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -34,7 +37,7 @@
     "dotenv": "^16.4.5",
     "erc721a": "^4.3.0",
     "ethers": "^6.12.0",
-    "hardhat": "^2.22.8",
+    "hardhat": "^2.22.10",
     "hardhat-gas-reporter": "^2.1.1",
     "solidity-coverage": "^0.8.0",
     "ts-node": ">=8.0.0",

@@ -2,6 +2,7 @@
 
 import { showMintErrorToast, showMintSuccessToast } from '@/components/mint-result-toast';
 import { Button } from '@/components/ui/button';
+import { gaslessERC721AbiMap } from '@/config/abi-map';
 import { networkConfig } from '@/config/network-config';
 import {
   useSwitchNetwork,
@@ -24,6 +25,7 @@ interface MintButtonProps {
   setCurrentNetworkId: (networkId: string) => void;
   updateTotalSupply: () => Promise<void>;
   onMintSuccess: () => void;
+  remainingMintAmount: number | null;
 }
 
 export default function MintButton({
@@ -37,6 +39,7 @@ export default function MintButton({
   setCurrentNetworkId,
   updateTotalSupply,
   onMintSuccess,
+  remainingMintAmount,
 }: MintButtonProps) {
   const { walletProvider } = useWeb3ModalProvider();
   const { switchNetwork } = useSwitchNetwork();
@@ -94,6 +97,17 @@ export default function MintButton({
 
       if (!network || !contractAddress) {
         throw new Error('Network configuration or contract address not found');
+      }
+
+      const contractModule = gaslessERC721AbiMap[network.networkId];
+      if (!contractModule) {
+        throw new Error('Contract ABI not found');
+      }
+      const contract = new ethers.Contract(contractAddress, contractModule.abi, provider);
+      const remainingMintAmountForUser = await contract.remainingMintAmount(address);
+
+      if (remainingMintAmountForUser === 0 || remainingMintAmountForUser < quantity) {
+        throw new Error('Not enough mints available');
       }
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -182,14 +196,18 @@ export default function MintButton({
     ? 'Not Available'
     : isSoldOut
     ? 'Sold Out'
+    : remainingMintAmount === 0
+    ? 'No More Mints Available'
     : isMinting
     ? 'Minting...'
     : 'Mint';
 
+  const isDisabled = isLoading || isSoldOut || !contractAddress || remainingMintAmount === 0;
+
   return (
     <Button
       onClick={handleMint}
-      disabled={isLoading || isSoldOut || !contractAddress}
+      disabled={isDisabled}
       className="w-[400px] lg:w-[500px]"
       size={'lg'}
     >

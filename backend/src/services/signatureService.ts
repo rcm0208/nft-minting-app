@@ -1,4 +1,6 @@
 import { ethers } from "ethers";
+import gaslessERC721A_59141 from "../../../contract/ignition/deployments/chain-59141/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import lineaSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-59141/deployed_addresses.json";
 import gaslessERC721A_80002 from "../../../contract/ignition/deployments/chain-80002/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 import amoyContractAddresses from "../../../contract/ignition/deployments/chain-80002/deployed_addresses.json";
 import gaslessERC721A_84532 from "../../../contract/ignition/deployments/chain-84532/artifacts/GaslessERC721AModule#GaslessERC721A.json";
@@ -9,6 +11,8 @@ import gaslessERC721A_11155111 from "../../../contract/ignition/deployments/chai
 import sepoliaContractAddresses from "../../../contract/ignition/deployments/chain-11155111/deployed_addresses.json";
 import gaslessERC721A_11155420 from "../../../contract/ignition/deployments/chain-11155420/artifacts/GaslessERC721AModule#GaslessERC721A.json";
 import optimismSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-11155420/deployed_addresses.json";
+import gaslessERC721A_168587773 from "../../../contract/ignition/deployments/chain-168587773/artifacts/GaslessERC721AModule#GaslessERC721A.json";
+import blastSepoliaContractAddresses from "../../../contract/ignition/deployments/chain-168587773/deployed_addresses.json";
 import { getRelayerWallet } from "../utils/ethers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -40,6 +44,18 @@ const gaslessERC721AbiMap: { [key: string]: any } = {
 		address:
 			baseSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
 		rpcUrl: "https://sepolia.base.org",
+	},
+	"168587773": {
+		abi: gaslessERC721A_168587773.abi,
+		address:
+			blastSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://sepolia.blast.io",
+	},
+	"59141": {
+		abi: gaslessERC721A_59141.abi,
+		address:
+			lineaSepoliaContractAddresses["GaslessERC721AModule#GaslessERC721A"],
+		rpcUrl: "https://rpc.sepolia.linea.build",
 	},
 };
 

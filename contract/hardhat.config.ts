@@ -53,6 +53,39 @@ const config: HardhatUserConfig = {
 				"",
 			accounts,
 		},
+		blast_sepolia: {
+			chainId: 168587773,
+			url:
+				process.env.BLAST_SEPOLIA_RPC_URL ||
+				process.env.BLAST_SEPOLIA_ALCHEMY_KEY ||
+				"",
+			accounts,
+		},
+		linea_sepolia: {
+			chainId: 59141,
+			url:
+				process.env.LINEA_SEPOLIA_RPC_URL ||
+				process.env.LINEA_SEPOLIA_ALCHEMY_KEY ||
+				"",
+			accounts,
+		},
+		bera_bartio: {
+			chainId: 80084,
+			url:
+				process.env.BERA_BARTIO_RPC_URL ||
+				process.env.BERA_BARTIO_ALCHEMY_KEY ||
+				"",
+			accounts,
+		},
+		//TODO: ZKsyncの場合はデプロイ方式が異なるのでいつか修正
+		zksync_sepolia: {
+			chainId: 300,
+			url:
+				process.env.ZKSYNC_SEPOLIA_RPC_URL ||
+				process.env.ZKSYNC_SEPOLIA_ALCHEMY_KEY ||
+				"",
+			accounts,
+		},
 	},
 	etherscan: {
 		apiKey: {
@@ -62,6 +95,10 @@ const config: HardhatUserConfig = {
 			optimism_sepolia: process.env.OPTIMISMSCAN_API_KEY || "",
 			arbitrum_sepolia: process.env.ARBITRUMSCAN_API_KEY || "",
 			base_sepolia: process.env.BASESCAN_API_KEY || "",
+			blast_sepolia: process.env.BLASTSCAN_API_KEY || "",
+			linea_sepolia: process.env.LINEASCAN_API_KEY || "",
+			bera_bartio: process.env.BARTIOSCAN_API_KEY || "",
+			zksync_sepolia: process.env.ZKSYNCSCAN_API_KEY || "", //TODO: ZKsyncの場合はデプロイ方式が異なるのでいつか修正
 		},
 		customChains: [
 			{
@@ -102,6 +139,40 @@ const config: HardhatUserConfig = {
 				urls: {
 					apiURL: "https://api-sepolia.basescan.org/api",
 					browserURL: "https://api-sepolia.basescan.org",
+				},
+			},
+			{
+				network: "blast_sepolia",
+				chainId: 168587773,
+				urls: {
+					apiURL:
+						"https://api.routescan.io/v2/network/testnet/evm/168587773/etherscan",
+					browserURL: "https://sepolia.blastexplorer.io",
+				},
+			},
+			{
+				network: "linea_sepolia",
+				chainId: 59141,
+				urls: {
+					apiURL: "https://api-sepolia.lineascan.build/api",
+					browserURL: "https://api-sepolia.lineascan.build",
+				},
+			},
+			{
+				network: "bera_bartio",
+				chainId: 80084,
+				urls: {
+					apiURL: "https://api-bartio.beratrail.io/api",
+					browserURL: "https://api-bartio.beratrail.io",
+				},
+			},
+			//TODO: ZKsyncの場合はデプロイ方式が異なるのでいつか修正
+			{
+				network: "zksync_sepolia",
+				chainId: 300,
+				urls: {
+					apiURL: "https://api-sepolia.explorer.zksync.io/api",
+					browserURL: "https://api-sepolia.explorer.zksync.io",
 				},
 			},
 		],
